@@ -19,8 +19,5 @@
 	"bugs": {
 		"url": "https://github.com/demosjarco/Cloudflare-Teams-DNS-Privacy-AdBlock/issues"
 	},
-	"homepage": "https://cftdpa.pages.dev",
-	"devDependencies": {
-		"create-remix": "^1.1.1"
-	}
+	"homepage": "https://cftdpa.pages.dev"
 }
