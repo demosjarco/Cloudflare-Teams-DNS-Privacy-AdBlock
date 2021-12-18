@@ -1,26 +1,26 @@
 {
-  "name": "cloudflare-teams-dns-privacy-adblock",
-  "version": "1.0.0",
-  "description": "Pi-Hole Style Privacy/Ad blocking in the cloud leveraging Cloudflare for Teams Gateway DNS",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/demosjarco/Cloudflare-Teams-DNS-Privacy-AdBlock.git"
-  },
-  "keywords": [
-    "privacy",
-    "pi-hole"
-  ],
-  "author": "demosjarco",
-  "license": "GPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/demosjarco/Cloudflare-Teams-DNS-Privacy-AdBlock/issues"
-  },
-  "homepage": "https://cftdpa.pages.dev",
-  "devDependencies": {
-    "create-remix": "^1.1.1"
-  }
+	"name": "cloudflare-teams-dns-privacy-adblock",
+	"version": "1.0.0",
+	"description": "Pi-Hole Style Privacy/Ad blocking in the cloud leveraging Cloudflare for Teams Gateway DNS",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/demosjarco/Cloudflare-Teams-DNS-Privacy-AdBlock.git"
+	},
+	"keywords": [
+		"privacy",
+		"pi-hole"
+	],
+	"author": "demosjarco",
+	"license": "GPL-3.0-or-later",
+	"bugs": {
+		"url": "https://github.com/demosjarco/Cloudflare-Teams-DNS-Privacy-AdBlock/issues"
+	},
+	"homepage": "https://cftdpa.pages.dev",
+	"devDependencies": {
+		"create-remix": "^1.1.1"
+	}
 }
