@@ -9,11 +9,11 @@ $(function () {
 
 			$(`<div class="tab-pane fade show active" id="account-id" role="tabpanel" aria-labelledby="account-id-tab">
 				<form onsubmit="return false;">
-					<div class="row mb-3">
+					<div class="form-group mb-3">
 						<label for="account-id-id" class="col-form-label">Account ID:</label>
 						<input type="text" class="form-control" id="account-id-id" spellcheck="false" autocomplete="off" pattern="[\w\d]+" minlength="32" maxlength="32" aria-required="true" required />
 					</div>
-					<div class="row mb-3">
+					<div class="form-group mb-3">
 						<label for="account-id-key" class="col-form-label">API Key:</label>
 						<input type="password" class="form-control" id="account-id-key" spellcheck="false" autocomplete="off" pattern="[\w\d-_]/i" minlength="40" maxlength="40" aria-required="true" required />
 					</div>
