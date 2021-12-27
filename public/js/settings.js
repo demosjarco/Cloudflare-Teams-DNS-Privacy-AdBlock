@@ -41,6 +41,9 @@ $(function () {
 			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption not available`);
 			$("div#settingsModal span#localCryptoAvailable i.fas").addClass("fa-exclamation");
 		}
+		tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl);
+		});
 	});
 	if (storageAvailable('localStorage')) {
 		$("div#settingsModal span#localStorageAvailable").addClass("bg-success");
@@ -52,6 +55,9 @@ $(function () {
 		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage not available`);
 		$("div#settingsModal span#localStorageAvailable i.fas").addClass("fa-exclamation");
 	}
+	tooltipTriggerList.map(function (tooltipTriggerEl) {
+		return new bootstrap.Tooltip(tooltipTriggerEl);
+	});
 });
 
 function storageAvailable(type) {
