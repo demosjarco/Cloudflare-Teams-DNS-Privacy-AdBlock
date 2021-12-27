@@ -88,7 +88,6 @@ function encryptedStorageAvailable(callback) {
 	).then((key) => {
 		//returns a keypair object
 		callback(true, 512);
-		encryptionToUse
 	}).catch((err1) => {
 		window.crypto.subtle.generateKey({
 			name: "ECDSA",
