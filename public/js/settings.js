@@ -1,7 +1,4 @@
 $(function () {
-	$("div#settingsModal form").submit((event) => {
-		console.log(event);
-	});
 	$("div#settingsModal button#addAccount").click((event) => {
 		if ($('div#settingsModal div#account-id').length) {
 			// New account already added
@@ -30,4 +27,91 @@ $(function () {
 			$('div#settingsModal div#account-id').tab('show');
 		}
 	});
+	$("div#settingsModal form").submit((event) => {
+		console.log(event);
+	});
+	encryptedStorageAvailable((available, size) => {
+		if (available) {
+			$("div#settingsModal span#localCryptoAvailable").addClass("bg-success");
+			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption available with ${size} bits`);
+			$("div#settingsModal span#localCryptoAvailable i.fas").addClass("fa-check");
+		} else {
+			$("div#settingsModal span#localCryptoAvailable").addClass("bg-danger");
+			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption not available`);
+			$("div#settingsModal span#localCryptoAvailable i.fas").addClass("fa-exclamation");
+		}
+	});
+	if (storageAvailable('localStorage')) {
+		$("div#settingsModal span#localStorageAvailable").addClass("bg-success");
+		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage available`);
+		$("div#settingsModal span#localStorageAvailable i.fas").addClass("fa-check");
+	}
+	else {
+		$("div#settingsModal span#localStorageAvailable").addClass("bg-danger");
+		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage not available`);
+		$("div#settingsModal span#localStorageAvailable i.fas").addClass("fa-exclamation");
+	}
 });
+
+function storageAvailable(type) {
+	var storage;
+	try {
+		storage = window[type];
+		var x = '__storage_test__';
+		storage.setItem(x, x);
+		storage.removeItem(x);
+		return true;
+	}
+	catch (e) {
+		return e instanceof DOMException && (
+			// everything except Firefox
+			e.code === 22 ||
+			// Firefox
+			e.code === 1014 ||
+			// test name field too, because code might not be present
+			// everything except Firefox
+			e.name === 'QuotaExceededError' ||
+			// Firefox
+			e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+			// acknowledge QuotaExceededError only if there's something already stored
+			(storage && storage.length !== 0);
+	}
+}
+
+function encryptedStorageAvailable(callback) {
+	window.crypto.subtle.generateKey({
+		name: "ECDSA",
+		namedCurve: "P-521", //can be "P-256", "P-384", or "P-521"
+	},
+		false, //whether the key is extractable (i.e. can be used in exportKey)
+		["sign", "verify"] //can be any combination of "sign" and "verify"
+	).then((key) => {
+		//returns a keypair object
+		callback(true, 512);
+		encryptionToUse
+	}).catch((err1) => {
+		window.crypto.subtle.generateKey({
+			name: "ECDSA",
+			namedCurve: "P-384", //can be "P-256", "P-384", or "P-521"
+		},
+			false, //whether the key is extractable (i.e. can be used in exportKey)
+			["sign", "verify"] //can be any combination of "sign" and "verify"
+		).then((key) => {
+			//returns a keypair object
+			callback(true, 384);
+		}).catch((err2) => {
+			window.crypto.subtle.generateKey({
+				name: "ECDSA",
+				namedCurve: "P-256", //can be "P-256", "P-384", or "P-521"
+			},
+				false, //whether the key is extractable (i.e. can be used in exportKey)
+				["sign", "verify"] //can be any combination of "sign" and "verify"
+			).then((key) => {
+				//returns a keypair object
+				callback(true, 256);
+			}).catch((err3) => {
+				callback(false);
+			});
+		});
+	});
+}
