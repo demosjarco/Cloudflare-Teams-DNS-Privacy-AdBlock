@@ -19,7 +19,7 @@ $(function () {
 						<label for="account-id-key" class="col-form-label">API Key:</label>
 						<input type="password" class="form-control" id="account-id-key" spellcheck="false" autocomplete="off" pattern="[\w\d-_]/i" minlength="40" maxlength="40" aria-required="true" required />
 					</div>
-					<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<div class="d-grid gap-2 d-md-flex justify-content-end">
 						<input class="btn btn-outline-danger" type="reset">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 						<input class="btn btn-primary" type="submit" value="Save">
