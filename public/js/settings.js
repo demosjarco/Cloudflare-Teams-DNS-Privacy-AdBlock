@@ -31,6 +31,7 @@ $(function () {
 	$("div#settingsModal form").submit((event) => {
 		console.log(event);
 	});
+	// Check for local crypto availability
 	encryptedStorageAvailable((available, size) => {
 		if (available) {
 			$("div#settingsModal span#localCryptoAvailable").addClass("bg-success");
@@ -45,6 +46,7 @@ $(function () {
 			return new bootstrap.Tooltip(tooltipTriggerEl);
 		});
 	});
+	// Check for local storage availability
 	if (storageAvailable('localStorage')) {
 		$("div#settingsModal span#localStorageAvailable").addClass("bg-success");
 		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage available`);
