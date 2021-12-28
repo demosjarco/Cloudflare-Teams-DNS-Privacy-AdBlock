@@ -94,10 +94,20 @@ let pubkeyOpt = {
 	attestation: "indirect"
 };
 console.log("Key options", pubkeyOpt);
+$(function () {
+	$("body").append(`<div class="alert alert-info" role="alert">
+		Key options<pre><code>${JSON.stringify(pubkeyOpt, null, '\t')}</code></pre>
+	</div>`);
+});
 navigator.credentials.create({
 	publicKey: pubkeyOpt
 }).then((key) => {
 	console.log(key);
 }).catch((err) => {
 	console.error(err);
+	$(function () {
+		$("body").append(`<div class="alert alert-danger" role="alert">
+			<code>${err}</code>
+		</div>`);
+	});
 });
