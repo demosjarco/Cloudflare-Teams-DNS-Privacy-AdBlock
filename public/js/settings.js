@@ -7,7 +7,7 @@ $(function () {
 			// Create new account tab
 			$(`<button class="nav-link active" id="account-id-tab" data-bs-toggle="pill" data-bs-target="#account-id" type="button" role="tab" aria-controls="account-id" aria-selected="true" title="Account ID#">Account Name</button>`).insertBefore("div#settingsModal button#addAccount");
 
-			$(`<div class="tab-pane fade show active" id="account-id" role="tabpanel" aria-labelledby="account-id-tab">
+			const newForm = $(`<div class="tab-pane fade show active" id="account-id" role="tabpanel" aria-labelledby="account-id-tab">
 				<form onsubmit="return false;">
 					<div class="form-group mb-3">
 						<label for="account-id-id" class="col-form-label">Account ID:</label>
@@ -24,12 +24,16 @@ $(function () {
 					</div>
 				</form>
 			</div>`).appendTo('div#settingsModal div#settings-nav-tabContent');
+			newForm.find("form").submit((event) => {
+				formSaved(event);
+			});
 
 			$('div#settingsModal div#account-id').tab('show');
 		}
+		// 1MJ8Z4yf0UZ7rwN4nj4keTXZyTBfFUq36bzkddWC
 	});
 	$("div#settingsModal form").submit((event) => {
-		console.log(event);
+		formSaved(event);
 	});
 	// Check for local crypto availability
 	encryptedStorageAvailable((available, curve) => {
@@ -61,6 +65,10 @@ $(function () {
 		return new bootstrap.Tooltip(tooltipTriggerEl);
 	});
 });
+
+function formSaved(event) {
+	console.log(event);
+}
 
 function storageAvailable(type) {
 	var storage;
