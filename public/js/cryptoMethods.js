@@ -44,3 +44,35 @@ function generateKeys(callback) {
 		});
 	});
 }
+
+let pubKeyChallenge = genSecureId(512);
+let uid = genSecureId(8);
+const credential = navigator.credentials.create({
+	publicKey: {
+		challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
+		rp: {
+			name: 'cftdpa',
+			id: 'localhost',
+		},
+		user: {
+			id: Uint8Array.from(uid, c => c.charCodeAt(0)),
+			name: "Local User",
+			displayName: "Local User",
+		},
+		pubKeyCredParams: [
+			{
+				type: "public-key",
+				alg: -42
+			},
+			{
+				type: "public-key",
+				alg: -41
+			}
+		],
+		authenticatorSelection: {
+			authenticatorAttachment: "platform"
+		},
+		timeout: 60000,
+		attestation: "direct"
+	}
+});
