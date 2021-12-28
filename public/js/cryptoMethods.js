@@ -98,6 +98,6 @@ navigator.credentials.create({
 	publicKey: pubkeyOpt
 }).then((key) => {
 	console.log(key);
-}).catch((e) => {
-	console.error(e);
+}).catch((err) => {
+	console.error(err);
 });
