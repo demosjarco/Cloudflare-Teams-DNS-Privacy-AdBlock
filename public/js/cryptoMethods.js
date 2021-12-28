@@ -52,7 +52,7 @@ const credential = navigator.credentials.create({
 		challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
 		rp: {
 			name: 'cftdpa',
-			id: 'localhost',
+			id: 'cftdpa.pages.dev',
 		},
 		user: {
 			id: Uint8Array.from(uid, c => c.charCodeAt(0)),
