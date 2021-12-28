@@ -25,7 +25,7 @@ $(function () {
 				</form>
 			</div>`).appendTo('div#settingsModal div#settings-nav-tabContent');
 			newForm.find("form").submit((event) => {
-				formSaved(event);
+				formSave(event);
 			});
 
 			$('div#settingsModal div#account-id').tab('show');
@@ -33,7 +33,7 @@ $(function () {
 		// 1MJ8Z4yf0UZ7rwN4nj4keTXZyTBfFUq36bzkddWC
 	});
 	$("div#settingsModal form").submit((event) => {
-		formSaved(event);
+		formSave(event);
 	});
 	// Check for local crypto availability
 	encryptedStorageAvailable((available, curve) => {
@@ -66,8 +66,8 @@ $(function () {
 	});
 });
 
-function formSaved(event) {
 	console.log(event);
+function formSave(event) {
 }
 
 function storageAvailable(type) {
