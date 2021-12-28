@@ -69,6 +69,7 @@ $(function () {
 
 function formSave(event) {
 	console.log($(event.originalEvent.srcElement).find("input#account-id-id").val());
+	console.log($(event.originalEvent.srcElement).find("input#account-id-key").val());
 }
 
 function storageAvailable(type) {
