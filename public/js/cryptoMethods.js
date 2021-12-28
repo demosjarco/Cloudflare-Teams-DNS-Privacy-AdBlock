@@ -93,7 +93,7 @@ let pubkeyOpt = {
 	},
 	attestation: "indirect"
 };
-console.log(pubkeyOpt);
+console.log("Key options", pubkeyOpt);
 navigator.credentials.create({
 	publicKey: pubkeyOpt
 }).then((key) => {
