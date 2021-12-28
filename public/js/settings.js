@@ -32,10 +32,10 @@ $(function () {
 		console.log(event);
 	});
 	// Check for local crypto availability
-	encryptedStorageAvailable((available, size) => {
+	encryptedStorageAvailable((available, curve) => {
 		if (available) {
 			$("div#settingsModal span#localCryptoAvailable").addClass("bg-success");
-			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption available with ${size} bits`);
+			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption using ECDSA with ${curve} curve`);
 			$("div#settingsModal span#localCryptoAvailable i.fas").addClass("fa-check");
 		} else {
 			$("div#settingsModal span#localCryptoAvailable").addClass("bg-danger");
@@ -96,7 +96,7 @@ function encryptedStorageAvailable(callback) {
 		["sign", "verify"] //can be any combination of "sign" and "verify"
 	).then((key) => {
 		//returns a keypair object
-		callback(true, 512);
+		callback(true, key.privateKey.algorithm.namedCurve);
 	}).catch((err1) => {
 		window.crypto.subtle.generateKey({
 			name: "ECDSA",
@@ -106,7 +106,7 @@ function encryptedStorageAvailable(callback) {
 			["sign", "verify"] //can be any combination of "sign" and "verify"
 		).then((key) => {
 			//returns a keypair object
-			callback(true, 384);
+			callback(true, key.privateKey.algorithm.namedCurve);
 		}).catch((err2) => {
 			window.crypto.subtle.generateKey({
 				name: "ECDSA",
@@ -116,7 +116,7 @@ function encryptedStorageAvailable(callback) {
 				["sign", "verify"] //can be any combination of "sign" and "verify"
 			).then((key) => {
 				//returns a keypair object
-				callback(true, 256);
+				callback(true, key.privateKey.algorithm.namedCurve);
 			}).catch((err3) => {
 				callback(false);
 			});
