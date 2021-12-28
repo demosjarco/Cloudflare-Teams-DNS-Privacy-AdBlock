@@ -1,3 +1,13 @@
+function genSecureId(size = 1) {
+	let array = new Uint32Array(size);
+	window.crypto.getRandomValues(array);
+	let secureIdString = '';
+	array.forEach((e) => {
+		secureIdString += e.toString(36);
+	});
+	return secureIdString;
+}
+
 function generateKeys(callback) {
 	window.crypto.subtle.generateKey({
 		name: "RSA-OAEP",
