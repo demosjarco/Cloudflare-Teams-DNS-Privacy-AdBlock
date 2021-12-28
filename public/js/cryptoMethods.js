@@ -45,34 +45,59 @@ function generateKeys(callback) {
 	});
 }
 
-let pubKeyChallenge = genSecureId(512);
-let uid = genSecureId(8);
-const credential = navigator.credentials.create({
-	publicKey: {
-		challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
-		rp: {
-			name: 'cftdpa',
-			id: 'cftdpa.pages.dev',
+let pubKeyChallenge = genSecureId(8);
+let userid = genSecureId(8);
+let pubkeyOpt = {
+	challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
+	rp: {
+		name: "cftdpa",
+		// id: "cftdpa.pages.dev"
+	},
+	user: {
+		name: "Local User",
+		displayName: "Local User",
+		id: Uint8Array.from(userid, c => c.charCodeAt(0)),
+	},
+	// Web Crypto SubtleCrypto.encrypt() only supports RSA-OAEP, AES-CTR, AES-CBC, AES-GCM
+	// AES-CTR, AES-CBC are not COSE Algorithms (https://www.iana.org/assignments/cose/cose.xhtml#algorithms)
+	pubKeyCredParams: [
+		// RSAES-OAEP w/ SHA-512
+		{
+			type: "public-key",
+			alg: -42
 		},
-		user: {
-			id: Uint8Array.from(uid, c => c.charCodeAt(0)),
-			name: "Local User",
-			displayName: "Local User",
+		// RSAES-OAEP w/ SHA-256
+		{
+			type: "public-key",
+			alg: -41
 		},
-		pubKeyCredParams: [
-			{
-				type: "public-key",
-				alg: -42
-			},
-			{
-				type: "public-key",
-				alg: -41
-			}
-		],
-		authenticatorSelection: {
-			authenticatorAttachment: "platform"
+		// A256GCM
+		{
+			type: "public-key",
+			alg: 3
 		},
-		timeout: 60000,
-		attestation: "direct"
-	}
+		// A192GCM
+		{
+			type: "public-key",
+			alg: 2
+		},
+		// A128GCM
+		{
+			type: "public-key",
+			alg: 1
+		}
+	],
+	authenticatorSelection: {
+		// userVerification: "required",
+		authenticatorAttachment: "platform"
+	},
+	attestation: "indirect"
+};
+console.log(pubkeyOpt);
+navigator.credentials.create({
+	publicKey: pubkeyOpt
+}).then((key) => {
+	console.log(key);
+}).catch((e) => {
+	console.error(e);
 });
