@@ -38,7 +38,6 @@ $(function () {
 	// Check for local crypto availability
 	encryptedStorageAvailable((available, algorithm) => {
 		if (available) {
-			console.log(algorithm);
 			$("div#settingsModal span#localCryptoAvailable").addClass("bg-success");
 			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption using ${algorithm.name} with ${algorithm.modulusLength} bits and ${algorithm.hash.name}`);
 			$("div#settingsModal span#localCryptoAvailable i.fas").addClass("fa-check");
