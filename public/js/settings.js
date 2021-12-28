@@ -36,10 +36,11 @@ $(function () {
 		formSave(event);
 	});
 	// Check for local crypto availability
-	encryptedStorageAvailable((available, curve) => {
+	encryptedStorageAvailable((available, algorithm) => {
 		if (available) {
+			console.log(algorithm);
 			$("div#settingsModal span#localCryptoAvailable").addClass("bg-success");
-			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption using ECDSA with ${curve} curve`);
+			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption using ${algorithm.name} with ${algorithm.modulusLength} bits and ${algorithm.hash.name}`);
 			$("div#settingsModal span#localCryptoAvailable i.fas").addClass("fa-check");
 		} else {
 			$("div#settingsModal span#localCryptoAvailable").addClass("bg-danger");
@@ -66,8 +67,8 @@ $(function () {
 	});
 });
 
-	console.log(event);
 function formSave(event) {
+	console.log($(event.originalEvent.srcElement).find("input#account-id-id").val());
 }
 
 function storageAvailable(type) {
@@ -95,38 +96,48 @@ function storageAvailable(type) {
 	}
 }
 
-function encryptedStorageAvailable(callback) {
+function encryptedStorageAvailable(testResult) {
+	generateKeys((privateKey, publicKey) => {
+		if (privateKey && publicKey) {
+			testResult(true, privateKey.algorithm);
+		} else {
+			testResult(false);
+		}
+	});
+}
+
+function generateKeys(callback) {
 	window.crypto.subtle.generateKey({
-		name: "ECDSA",
-		namedCurve: "P-521", //can be "P-256", "P-384", or "P-521"
-	},
-		false, //whether the key is extractable (i.e. can be used in exportKey)
-		["sign", "verify"] //can be any combination of "sign" and "verify"
-	).then((key) => {
+		name: "RSA-OAEP",
+		modulusLength: "4096",
+		publicExponent: new Uint8Array([1, 0, 1]),
+		hash: "SHA-512"
+	}, false, ["encrypt", "decrypt"]).then((key) => {
 		//returns a keypair object
-		callback(true, key.privateKey.algorithm.namedCurve);
+		callback(key.privateKey, key.publicKey);
 	}).catch((err1) => {
+		console.error(err1);
 		window.crypto.subtle.generateKey({
-			name: "ECDSA",
-			namedCurve: "P-384", //can be "P-256", "P-384", or "P-521"
-		},
-			false, //whether the key is extractable (i.e. can be used in exportKey)
-			["sign", "verify"] //can be any combination of "sign" and "verify"
-		).then((key) => {
+			name: "RSA-OAEP",
+			modulusLength: "4096",
+			publicExponent: new Uint8Array([1, 0, 1]),
+			hash: "SHA-384"
+		}, false, ["encrypt", "decrypt"]).then((key) => {
 			//returns a keypair object
-			callback(true, key.privateKey.algorithm.namedCurve);
+			callback(key.privateKey, key.publicKey);
 		}).catch((err2) => {
+			console.error(err2);
 			window.crypto.subtle.generateKey({
-				name: "ECDSA",
-				namedCurve: "P-256", //can be "P-256", "P-384", or "P-521"
-			},
-				false, //whether the key is extractable (i.e. can be used in exportKey)
-				["sign", "verify"] //can be any combination of "sign" and "verify"
-			).then((key) => {
+				name: "RSA-OAEP",
+				modulusLength: "4096",
+				publicExponent: new Uint8Array([1, 0, 1]),
+				hash: "SHA-256"
+			}, false, ["encrypt", "decrypt"]).then((key) => {
 				//returns a keypair object
-				callback(true, key.privateKey.algorithm.namedCurve);
+				callback(key.privateKey, key.publicKey);
 			}).catch((err3) => {
-				callback(false);
+				console.error(err3);
+				callback(null, null);
 			});
 		});
 	});
