@@ -30,7 +30,6 @@ $(function () {
 
 			$('div#settingsModal div#account-id').tab('show');
 		}
-		// 1MJ8Z4yf0UZ7rwN4nj4keTXZyTBfFUq36bzkddWC
 	});
 	$("div#settingsModal form").submit((event) => {
 		formSave(event);
