@@ -42,6 +42,51 @@ export function generateKeys(callback) {
 			{
 				type: "public-key",
 				alg: -7
+			},
+			// RSASSA-PSS w/ SHA-512
+			{
+				type: "public-key",
+				alg: -39
+			},
+			// RSASSA-PSS w/ SHA-384
+			{
+				type: "public-key",
+				alg: -38
+			},
+			// RSASSA-PSS w/ SHA-256
+			{
+				type: "public-key",
+				alg: -37
+			},
+			// RSAES-OAEP w/ SHA-512
+			{
+				type: "public-key",
+				alg: -42
+			},
+			// RSAES-OAEP w/ SHA-256
+			{
+				type: "public-key",
+				alg: -41
+			},
+			// RSASSA-PKCS1-v1_5 using SHA-512
+			{
+				type: "public-key",
+				alg: -259
+			},
+			// RSASSA-PKCS1-v1_5 using SHA-384
+			{
+				type: "public-key",
+				alg: -258
+			},
+			// RSASSA-PKCS1-v1_5 using SHA-256
+			{
+				type: "public-key",
+				alg: -257
+			},
+			// EdDSA
+			{
+				type: "public-key",
+				alg: -8
 			}
 		],
 		authenticatorSelection: {
