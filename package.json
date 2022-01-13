@@ -19,5 +19,8 @@
 	"bugs": {
 		"url": "https://github.com/demosjarco/Cloudflare-Teams-DNS-Privacy-AdBlock/issues"
 	},
-	"homepage": "https://cftdpa.pages.dev"
+	"homepage": "https://cftdpa.pages.dev",
+	"dependencies": {
+		"@github/webauthn-json": "^0.6.2"
+	}
 }
