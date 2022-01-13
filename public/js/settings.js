@@ -130,6 +130,20 @@ function encryptedStorageAvailable(testResult) {
 }
 
 function webauthnAvailable(testResult) {
-	generateKeys(() => {
+	generateKeys((keyType, algorithm, curveType) => {
+		console.log("keyType", keyType);
+		console.log("algorithm", algorithm);
+		console.log("curveType", curveType);
+		$(function () {
+			$("body").append(`<div class="alert alert-info" role="alert">
+				keyType<pre><code>${JSON.stringify(keyType, null, '\t')}</code></pre>
+			</div>`);
+			$("body").append(`<div class="alert alert-info" role="alert">
+				algorithm<pre><code>${JSON.stringify(algorithm, null, '\t')}</code></pre>
+			</div>`);
+			$("body").append(`<div class="alert alert-info" role="alert">
+				curveType<pre><code>${JSON.stringify(curveType, null, '\t')}</code></pre>
+			</div>`);
+		});
 	});
 }

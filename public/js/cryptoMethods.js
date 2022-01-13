@@ -68,7 +68,6 @@ export function generateKeys(callback) {
 	let userid = genSecureId(8);
 	let pubkeyOpt = {
 		challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
-		// challenge: pubKeyChallenge,
 		rp: {
 			name: "cftdpa",
 			// id: "cftdpa.pages.dev"
@@ -77,7 +76,6 @@ export function generateKeys(callback) {
 			name: "Local User",
 			displayName: "Local User",
 			id: Uint8Array.from(userid, c => c.charCodeAt(0)),
-			// id: userid,
 		},
 		pubKeyCredParams: [
 			// ECDSA w/ SHA-512
@@ -152,7 +150,7 @@ export function generateKeys(callback) {
 		},
 		attestation: "indirect"
 	};
-	console.log("Key options", pubkeyOpt);
+	// console.log("Key options", pubkeyOpt);
 	navigator.credentials.create({
 		publicKey: pubkeyOpt
 	}).then((credential) => {
@@ -161,23 +159,29 @@ export function generateKeys(callback) {
 		const clientDataObj = JSON.parse(decodedClientData);
 		const decodedAttestationObj = CBOR.decode(credential.response.attestationObject);
 
-		console.log(clientDataObj);
-		console.log(decodedAttestationObj);
-		$(function () {
-			$("body").append(`<div class="alert alert-info" role="alert">
-				Client Data<pre><code>${JSON.stringify(clientDataObj, null, '\t')}</code></pre>
-			</div>`);
-			$("body").append(`<div class="alert alert-info" role="alert">
-				Attestation<pre><code>${JSON.stringify(decodedAttestationObj, null, '\t')}</code></pre>
-			</div>`);
-		});
+		// console.log(clientDataObj);
+		// console.log(decodedAttestationObj);
+
+		const { authData } = decodedAttestationObj;
+
+		// get the length of the credential ID
+		const dataView = new DataView(new ArrayBuffer(2));
+		const idLenBytes = authData.slice(53, 55);
+		idLenBytes.forEach((value, index) => dataView.setUint8(index, value));
+		const credentialIdLength = dataView.getUint16();
+
+		// get the credential ID
+		const credentialId = authData.slice(55, 55 + credentialIdLength);
+
+		// get the public key object
+		const publicKeyBytes = authData.slice(55 + credentialIdLength);
+
+		// the publicKeyBytes are encoded again as CBOR
+		const publicKeyObject = CBOR.decode(publicKeyBytes.buffer);
+		// console.log(publicKeyObject);
+		callback(publicKeyObject["1"], publicKeyObject["3"], publicKeyObject["-1"]);
 	}).catch((err) => {
 		console.error(err);
-		$(function () {
-			$("body").append(`<div class="alert alert-danger" role="alert">
-			<code>${err}</code>
-		</div>`);
-		});
 	});
 }
 
