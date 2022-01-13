@@ -4,7 +4,7 @@
 	"description": "Pi-Hole Style Privacy/Ad blocking in the cloud leveraging Cloudflare for Teams Gateway DNS",
 	"main": "index.js",
 	"scripts": {
-		"build": "npm ci --fund=false && cp -p node_modules/@github/webauthn-json/dist/esm/webauthn-json.extended.js public/js/webauthn-json.extended.js"
+		"build": "npm ci --fund=false && wget https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js -O ./public/js/cbor.js"
 	},
 	"repository": {
 		"type": "git",
@@ -19,8 +19,5 @@
 	"bugs": {
 		"url": "https://github.com/demosjarco/Cloudflare-Teams-DNS-Privacy-AdBlock/issues"
 	},
-	"homepage": "https://cftdpa.pages.dev",
-	"dependencies": {
-		"@github/webauthn-json": "^0.6.2"
-	}
+	"homepage": "https://cftdpa.pages.dev"
 }

@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-# @github/webauthn-json
-public/js/webauthn-json.extended.js
+# https://github.com/paroga/cbor-js
+public/js/cbor.js
