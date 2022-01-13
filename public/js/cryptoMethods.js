@@ -155,6 +155,7 @@ export function generateKeys(callback) {
 		const publicKeyObject = CBOR.decode(publicKeyBytes.buffer);
 		callback(publicKeyObject["3"]);
 
+		// store the publicKeyBytes and credentialId
 	}).catch((err) => {
 		console.error(err);
 		callback(null);
