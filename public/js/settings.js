@@ -1,13 +1,14 @@
 $(function () {
 	let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 	$("div#settingsModal button#addAccount").click((event) => {
-		if ($('div#settingsModal div#account-id').length) {
-			// New account already added
-		} else {
-			// Create new account tab
-			$(`<button class="nav-link active" id="account-id-tab" data-bs-toggle="pill" data-bs-target="#account-id" type="button" role="tab" aria-controls="account-id" aria-selected="true" title="Account ID#">Account Name</button>`).insertBefore("div#settingsModal button#addAccount");
+		$(function () {
+			if ($('div#settingsModal div#account-id').length) {
+				// New account already added
+			} else {
+				// Create new account tab
+				$(`<button class="nav-link active" id="account-id-tab" data-bs-toggle="pill" data-bs-target="#account-id" type="button" role="tab" aria-controls="account-id" aria-selected="true" title="Account ID#">Account Name</button>`).insertBefore("div#settingsModal button#addAccount");
 
-			const newForm = $(`<div class="tab-pane fade show active" id="account-id" role="tabpanel" aria-labelledby="account-id-tab">
+				const newForm = $(`<div class="tab-pane fade show active" id="account-id" role="tabpanel" aria-labelledby="account-id-tab">
 				<form onsubmit="return false;">
 					<div class="form-group mb-3">
 						<label for="account-id-id" class="col-form-label">Account ID:</label>
@@ -24,18 +25,26 @@ $(function () {
 					</div>
 				</form>
 			</div>`).appendTo('div#settingsModal div#settings-nav-tabContent');
-			newForm.find("form").submit((event) => {
-				formSave(event);
-			});
+				newForm.find("form").submit((event) => {
+					formSave(event);
+				});
 
-			$('div#settingsModal div#account-id').tab('show');
-		}
+				$('div#settingsModal div#account-id').tab('show');
+			}
+		});
 	});
 	$("div#settingsModal form").submit((event) => {
 		formSave(event);
 	});
-	// Check for local crypto availability
-	encryptedStorageAvailable((available, algorithm) => {
+	
+	tooltipTriggerList.map(function (tooltipTriggerEl) {
+		return new bootstrap.Tooltip(tooltipTriggerEl);
+	});
+});
+
+// Check for local crypto availability
+encryptedStorageAvailable((available, algorithm) => {
+	$(function () {
 		if (available) {
 			$("div#settingsModal span#localCryptoAvailable").addClass("bg-success");
 			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption using ${algorithm.name} with ${algorithm.modulusLength} bits and ${algorithm.hash.name}`);
@@ -49,25 +58,28 @@ $(function () {
 			return new bootstrap.Tooltip(tooltipTriggerEl);
 		});
 	});
-	// Check for local storage availability
-	if (storageAvailable('localStorage')) {
+});
+// Check for local storage availability
+if (storageAvailable('localStorage')) {
+	$(function () {
 		$("div#settingsModal span#localStorageAvailable").addClass("bg-success");
 		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage available`);
 		$("div#settingsModal span#localStorageAvailable i.fas").addClass("fa-check");
-	}
-	else {
+	});
+}
+else {
+	$(function () {
 		$("div#settingsModal span#localStorageAvailable").addClass("bg-danger");
 		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage not available`);
 		$("div#settingsModal span#localStorageAvailable i.fas").addClass("fa-exclamation");
-	}
-	tooltipTriggerList.map(function (tooltipTriggerEl) {
-		return new bootstrap.Tooltip(tooltipTriggerEl);
 	});
-});
+}
 
 function formSave(event) {
-	console.log($(event.originalEvent.srcElement).find("input#account-id-id").val());
-	console.log($(event.originalEvent.srcElement).find("input#account-id-key").val());
+	$(function () {
+		console.log($(event.originalEvent.srcElement).find("input#account-id-id").val());
+		console.log($(event.originalEvent.srcElement).find("input#account-id-key").val());
+	});
 }
 
 function storageAvailable(type) {
