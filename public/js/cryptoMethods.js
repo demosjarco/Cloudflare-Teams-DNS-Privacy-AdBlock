@@ -1,4 +1,4 @@
-import { create } from "../../node_modules/@github/webauthn-json/dist/esm/webauthn-json.extended.js"
+import { create } from "./webauthn-json.extended.js"
 
 export function genSecureId(size = 1) {
 	let array = new Uint32Array(size);
