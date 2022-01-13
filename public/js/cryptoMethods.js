@@ -8,12 +8,67 @@ export function genSecureId(size = 1) {
 	return secureIdString;
 }
 
+const webauthnalgorithms = [
+	{
+		name: "ECDSA w/ SHA-512",
+		alg: -36
+	},
+	{
+		name: "ECDSA w/ SHA-384",
+		alg: -35
+	},
+	{
+		name: "ECDSA using secp256k1 curve and SHA-256",
+		alg: -47
+	},
+	{
+		name: "ECDSA w/ SHA-256",
+		alg: -7
+	},
+	{
+		name: "RSASSA-PSS w/ SHA-512",
+		alg: -39
+	},
+	{
+		name: "RSASSA-PSS w/ SHA-384",
+		alg: -38
+	},
+	{
+		name: "RSASSA-PSS w/ SHA-256",
+		alg: -37
+	},
+	{
+		name: "RSAES-OAEP w/ SHA-512",
+		alg: -42
+	},
+	{
+		name: "RSAES-OAEP w/ SHA-256",
+		alg: -41
+	},
+	{
+		name: "RSASSA-PKCS1-v1_5 using SHA-512",
+		alg: -259
+	},
+	{
+		name: "RSASSA-PKCS1-v1_5 using SHA-384",
+		alg: -258
+	},
+	{
+		name: "RSASSA-PKCS1-v1_5 using SHA-256",
+		alg: -257
+	},
+	{
+		name: "EdDSA",
+		alg: -8
+	}
+];
+
 export function generateKeys(callback) {
 	let pubKeyChallenge = genSecureId(8);
 	let userid = genSecureId(8);
 	let pubkeyOpt = {
-		// challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
-		challenge: pubKeyChallenge,
+		challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
+		// challenge: pubKeyChallenge,
 		rp: {
 			name: "cftdpa",
 			// id: "cftdpa.pages.dev"
@@ -21,8 +76,8 @@ export function generateKeys(callback) {
 		user: {
 			name: "Local User",
 			displayName: "Local User",
-			// id: Uint8Array.from(userid, c => c.charCodeAt(0)),
-			id: userid,
+			id: Uint8Array.from(userid, c => c.charCodeAt(0)),
+			// id: userid,
 		},
 		pubKeyCredParams: [
 			// ECDSA w/ SHA-512
@@ -98,14 +153,22 @@ export function generateKeys(callback) {
 		attestation: "indirect"
 	};
 	console.log("Key options", pubkeyOpt);
-	create({
+	navigator.credentials.create({
 		publicKey: pubkeyOpt
-	}).then((newCredentialInfo) => {
-		console.log(newCredentialInfo);
+	}).then((credential) => {
+		const utf8Decoder = new TextDecoder('utf-8');
+		const decodedClientData = utf8Decoder.decode(credential.response.clientDataJSON);
+		const clientDataObj = JSON.parse(decodedClientData);
+		const decodedAttestationObj = CBOR.decode(credential.response.attestationObject);
+
+		console.log(clientDataObj);
+		console.log(decodedAttestationObj);
 		$(function () {
 			$("body").append(`<div class="alert alert-info" role="alert">
-				Key options<pre><code>${JSON.stringify(newCredentialInfo
-, null, '\t')}</code></pre>
+				Client Data<pre><code>${JSON.stringify(clientDataObj, null, '\t')}</code></pre>
+			</div>`);
+			$("body").append(`<div class="alert alert-info" role="alert">
+				Attestation<pre><code>${JSON.stringify(decodedAttestationObj, null, '\t')}</code></pre>
 			</div>`);
 		});
 	}).catch((err) => {
