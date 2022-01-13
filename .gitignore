@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# @github/webauthn-json
+public/js/webauthn-json.extended.js
