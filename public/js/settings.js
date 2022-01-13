@@ -1,6 +1,8 @@
 import { generateKeys } from './cryptoMethods.js';
+
+let tooltipTriggerList;
 $(function () {
-	let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+	tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 	$("div#settingsModal button#addAccount").click((event) => {
 		$(function () {
 			if ($('div#settingsModal div#account-id').length) {
