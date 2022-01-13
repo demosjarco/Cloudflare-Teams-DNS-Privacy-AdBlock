@@ -1,3 +1,5 @@
+import { create } from "../../node_modules/@github/webauthn-json/dist/esm/webauthn-json.extended.js"
+
 export function genSecureId(size = 1) {
 	let array = new Uint32Array(size);
 	window.crypto.getRandomValues(array);
@@ -12,7 +14,8 @@ export function generateKeys(callback) {
 	let pubKeyChallenge = genSecureId(8);
 	let userid = genSecureId(8);
 	let pubkeyOpt = {
-		challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
+		// challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
+		challenge: pubKeyChallenge,
 		rp: {
 			name: "cftdpa",
 			// id: "cftdpa.pages.dev"
@@ -20,7 +23,8 @@ export function generateKeys(callback) {
 		user: {
 			name: "Local User",
 			displayName: "Local User",
-			id: Uint8Array.from(userid, c => c.charCodeAt(0)),
+			// id: Uint8Array.from(userid, c => c.charCodeAt(0)),
+			id: userid,
 		},
 		pubKeyCredParams: [
 			// ECDSA w/ SHA-512
@@ -96,10 +100,16 @@ export function generateKeys(callback) {
 		attestation: "indirect"
 	};
 	console.log("Key options", pubkeyOpt);
-	navigator.credentials.create({
+	create({
 		publicKey: pubkeyOpt
-	}).then((key) => {
-		console.log(key);
+	}).then((newCredentialInfo) => {
+		console.log(newCredentialInfo);
+		$(function () {
+			$("body").append(`<div class="alert alert-info" role="alert">
+				Key options<pre><code>${JSON.stringify(newCredentialInfo
+, null, '\t')}</code></pre>
+			</div>`);
+		});
 	}).catch((err) => {
 		console.error(err);
 		$(function () {
