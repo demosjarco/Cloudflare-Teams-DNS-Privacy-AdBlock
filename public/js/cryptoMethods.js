@@ -37,7 +37,7 @@ export function algorithmNameForId(algId) {
 		case -8:
 			return "EdDSA";
 		default:
-			return Number(algId).toString();
+			return `${Number(algId)} from https://www.iana.org/assignments/cose/cose.xhtml#algorithms`;
 	}
 }
 

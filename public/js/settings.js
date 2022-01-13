@@ -135,7 +135,7 @@ function webauthnAvailable(testResult) {
 			if (algorithm) {
 				$("div#settingsModal span#localKeysAvailable").removeClass("bg-primary");
 				$("div#settingsModal span#localKeysAvailable").addClass("bg-success");
-				$("div#settingsModal span#localKeysAvailable").prop("title", `Using ${algorithmNameForId(algorithm)}`);
+				$("div#settingsModal span#localKeysAvailable").prop("title", algorithmNameForId(algorithm));
 			} else {
 				$("div#settingsModal span#localKeysAvailable").removeClass("bg-primary");
 				$("div#settingsModal span#localKeysAvailable").addClass("bg-danger");
