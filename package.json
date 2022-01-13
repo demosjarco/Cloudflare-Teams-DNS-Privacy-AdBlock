@@ -4,7 +4,7 @@
 	"description": "Pi-Hole Style Privacy/Ad blocking in the cloud leveraging Cloudflare for Teams Gateway DNS",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "npm ci --fund=false && cp -p node_modules/@github/webauthn-json/dist/esm/webauthn-json.extended.js public/js/webauthn-json.extended.js"
 	},
 	"repository": {
 		"type": "git",
