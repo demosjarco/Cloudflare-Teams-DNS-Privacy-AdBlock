@@ -8,23 +8,21 @@ export function genSecureId(size = 1) {
 	return secureIdString;
 }
 
+export function algorithmNameForId(algId) {
+	switch (Number(algId)) {
+		case -36:
+			return "ECDSA w/ SHA-512";
+		case -35:
+			return "ECDSA w/ SHA-384";
+		case -47:
+			return "ECDSA using secp256k1 curve and SHA-256";
+		case -7:
+			return "ECDSA w/ SHA-256";
+		default:
+			return Number(algId).toString();
+	}
+}
 const webauthnalgorithms = [
-	{
-		name: "ECDSA w/ SHA-512",
-		alg: -36
-	},
-	{
-		name: "ECDSA w/ SHA-384",
-		alg: -35
-	},
-	{
-		name: "ECDSA using secp256k1 curve and SHA-256",
-		alg: -47
-	},
-	{
-		name: "ECDSA w/ SHA-256",
-		alg: -7
-	},
 	{
 		name: "RSASSA-PSS w/ SHA-512",
 		alg: -39
@@ -179,9 +177,10 @@ export function generateKeys(callback) {
 		// the publicKeyBytes are encoded again as CBOR
 		const publicKeyObject = CBOR.decode(publicKeyBytes.buffer);
 		// console.log(publicKeyObject);
-		callback(publicKeyObject["1"], publicKeyObject["3"], publicKeyObject["-1"]);
+		callback(publicKeyObject["3"]);
 	}).catch((err) => {
 		console.error(err);
+		callback(null);
 	});
 }
 

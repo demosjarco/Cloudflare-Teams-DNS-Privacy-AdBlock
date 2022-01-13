@@ -1,4 +1,4 @@
-import { generateKeys } from './cryptoMethods.js';
+import { generateKeys, algorithmNameForId } from './cryptoMethods.js';
 
 let tooltipTriggerList;
 $(function () {
@@ -130,20 +130,20 @@ function encryptedStorageAvailable(testResult) {
 }
 
 function webauthnAvailable(testResult) {
-	generateKeys((keyType, algorithm, curveType) => {
-		console.log("keyType", keyType);
-		console.log("algorithm", algorithm);
-		console.log("curveType", curveType);
+	generateKeys((algorithm) => {
 		$(function () {
-			$("body").append(`<div class="alert alert-info" role="alert">
-				keyType<pre><code>${JSON.stringify(keyType, null, '\t')}</code></pre>
-			</div>`);
-			$("body").append(`<div class="alert alert-info" role="alert">
-				algorithm<pre><code>${JSON.stringify(algorithm, null, '\t')}</code></pre>
-			</div>`);
-			$("body").append(`<div class="alert alert-info" role="alert">
-				curveType<pre><code>${JSON.stringify(curveType, null, '\t')}</code></pre>
-			</div>`);
+			if (algorithm) {
+				$("div#settingsModal span#localKeysAvailable").removeClass("bg-primary");
+				$("div#settingsModal span#localKeysAvailable").addClass("bg-success");
+				$("div#settingsModal span#localKeysAvailable").prop("title", `Using ${algorithmNameForId(algorithm)}`);
+			} else {
+				$("div#settingsModal span#localKeysAvailable").removeClass("bg-primary");
+				$("div#settingsModal span#localKeysAvailable").addClass("bg-danger");
+				$("div#settingsModal span#localKeysAvailable").prop("title", `Not available`);
+			}
+			tooltipTriggerList.map(function (tooltipTriggerEl) {
+				return new bootstrap.Tooltip(tooltipTriggerEl);
+			});
 		});
 	});
 }
