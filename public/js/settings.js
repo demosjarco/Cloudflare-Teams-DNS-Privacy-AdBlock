@@ -67,7 +67,7 @@ else {
 	$(function () {
 		$("div#settingsModal span#localStorageAvailable").removeClass("bg-primary");
 		$("div#settingsModal span#localStorageAvailable").addClass("bg-danger");
-		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage not available`);
+		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage not available. Check that cookies are enabled.`);
 		tooltipTriggerList.map(function (tooltipTriggerEl) {
 			return new bootstrap.Tooltip(tooltipTriggerEl);
 		});
@@ -139,7 +139,7 @@ function webauthnAvailable(testResult) {
 			} else {
 				$("div#settingsModal span#localKeysAvailable").removeClass("bg-primary");
 				$("div#settingsModal span#localKeysAvailable").addClass("bg-danger");
-				$("div#settingsModal span#localKeysAvailable").prop("title", `Not available`);
+				$("div#settingsModal span#localKeysAvailable").prop("title", `Not available. Please refresh and try your authentication again`);
 			}
 			tooltipTriggerList.map(function (tooltipTriggerEl) {
 				return new bootstrap.Tooltip(tooltipTriggerEl);
