@@ -45,45 +45,54 @@ $(function () {
 	});
 });
 
-// Check for local crypto availability
-encryptedStorageAvailable((available, algorithm) => {
-	$(function () {
-		if (available) {
-			$("div#settingsModal span#localCryptoAvailable").addClass("bg-success");
-			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption using ${algorithm.name} with ${algorithm.modulusLength} bits and ${algorithm.hash.name}`);
-			$("div#settingsModal span#localCryptoAvailable i.fas").addClass("fa-check");
-		} else {
-			$("div#settingsModal span#localCryptoAvailable").addClass("bg-danger");
-			$("div#settingsModal span#localCryptoAvailable").prop("title", `Local Encryption not available`);
-			$("div#settingsModal span#localCryptoAvailable i.fas").addClass("fa-exclamation");
-		}
-		tooltipTriggerList.map(function (tooltipTriggerEl) {
-			return new bootstrap.Tooltip(tooltipTriggerEl);
-		});
-	});
-});
-// Check for local storage availability
-if (storageAvailable('localStorage')) {
-	$(function () {
-		$("div#settingsModal span#localStorageAvailable").addClass("bg-success");
-		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage available`);
-		$("div#settingsModal span#localStorageAvailable i.fas").addClass("fa-check");
-	});
-}
-else {
-	$(function () {
-		$("div#settingsModal span#localStorageAvailable").addClass("bg-danger");
-		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage not available`);
-		$("div#settingsModal span#localStorageAvailable i.fas").addClass("fa-exclamation");
-	});
-}
-
 function formSave(event) {
 	$(function () {
 		console.log($(event.originalEvent.srcElement).find("input#account-id-id").val());
 		console.log($(event.originalEvent.srcElement).find("input#account-id-key").val());
 	});
 }
+
+// Check for local storage availability
+if (storageAvailable('localStorage')) {
+	$(function () {
+		$("div#settingsModal span#localStorageAvailable").removeClass("bg-primary");
+		$("div#settingsModal span#localStorageAvailable").addClass("bg-success");
+		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage available`);
+		tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl);
+		});
+	});
+}
+else {
+	$(function () {
+		$("div#settingsModal span#localStorageAvailable").removeClass("bg-primary");
+		$("div#settingsModal span#localStorageAvailable").addClass("bg-danger");
+		$("div#settingsModal span#localStorageAvailable").prop("title", `Local Storage not available`);
+		tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl);
+		});
+	});
+}
+
+// Check for local crypto availability
+encryptedStorageAvailable((available, algorithm) => {
+	$(function () {
+		if (available) {
+			$("div#settingsModal span#localCryptoAvailable").removeClass("bg-primary");
+			$("div#settingsModal span#localCryptoAvailable").addClass("bg-success");
+			$("div#settingsModal span#localCryptoAvailable").prop("title", `Using ${algorithm.name} with ${algorithm.modulusLength} bits and ${algorithm.hash.name}`);
+		} else {
+			$("div#settingsModal span#localCryptoAvailable").removeClass("bg-primary");
+			$("div#settingsModal span#localCryptoAvailable").addClass("bg-danger");
+			$("div#settingsModal span#localCryptoAvailable").prop("title", `Not available`);
+		}
+		tooltipTriggerList.map(function (tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl);
+		});
+	});
+});
+
+webauthnAvailable();
 
 function storageAvailable(type) {
 	var storage;
@@ -111,11 +120,16 @@ function storageAvailable(type) {
 }
 
 function encryptedStorageAvailable(testResult) {
-	generateKeys((privateKey, publicKey) => {
+	/*generateKeys((privateKey, publicKey) => {
 		if (privateKey && publicKey) {
 			testResult(true, privateKey.algorithm);
 		} else {
 			testResult(false);
 		}
+	});*/
+}
+
+function webauthnAvailable(testResult) {
+	generateKeys(() => {
 	});
 }
