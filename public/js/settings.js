@@ -1,3 +1,4 @@
+import { generateKeys } from './cryptoMethods.js';
 $(function () {
 	let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 	$("div#settingsModal button#addAccount").click((event) => {

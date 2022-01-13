@@ -1,4 +1,4 @@
-function genSecureId(size = 1) {
+export function genSecureId(size = 1) {
 	let array = new Uint32Array(size);
 	window.crypto.getRandomValues(array);
 	let secureIdString = '';
@@ -8,7 +8,7 @@ function genSecureId(size = 1) {
 	return secureIdString;
 }
 
-function generateKeys(callback) {
+export function generateKeys(callback) {
 	window.crypto.subtle.generateKey({
 		name: "RSA-OAEP",
 		modulusLength: "4096",
