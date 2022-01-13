@@ -18,48 +18,28 @@ export function algorithmNameForId(algId) {
 			return "ECDSA using secp256k1 curve and SHA-256";
 		case -7:
 			return "ECDSA w/ SHA-256";
+		case -39:
+			return "RSASSA-PSS w/ SHA-512";
+		case -38:
+			return "RSASSA-PSS w/ SHA-384";
+		case -37:
+			return "RSASSA-PSS w/ SHA-256";
+		case -42:
+			return "RSAES-OAEP w/ SHA-512";
+		case -41:
+			return "RSAES-OAEP w/ SHA-256";
+		case -259:
+			return "RSASSA-PKCS1-v1_5 using SHA-512";
+		case -258:
+			return "RSASSA-PKCS1-v1_5 using SHA-384";
+		case -257:
+			return "RSASSA-PKCS1-v1_5 using SHA-256";
+		case -8:
+			return "EdDSA";
 		default:
 			return Number(algId).toString();
 	}
 }
-const webauthnalgorithms = [
-	{
-		name: "RSASSA-PSS w/ SHA-512",
-		alg: -39
-	},
-	{
-		name: "RSASSA-PSS w/ SHA-384",
-		alg: -38
-	},
-	{
-		name: "RSASSA-PSS w/ SHA-256",
-		alg: -37
-	},
-	{
-		name: "RSAES-OAEP w/ SHA-512",
-		alg: -42
-	},
-	{
-		name: "RSAES-OAEP w/ SHA-256",
-		alg: -41
-	},
-	{
-		name: "RSASSA-PKCS1-v1_5 using SHA-512",
-		alg: -259
-	},
-	{
-		name: "RSASSA-PKCS1-v1_5 using SHA-384",
-		alg: -258
-	},
-	{
-		name: "RSASSA-PKCS1-v1_5 using SHA-256",
-		alg: -257
-	},
-	{
-		name: "EdDSA",
-		alg: -8
-	}
-];
 
 export function generateKeys(callback) {
 	let pubKeyChallenge = genSecureId(8);
