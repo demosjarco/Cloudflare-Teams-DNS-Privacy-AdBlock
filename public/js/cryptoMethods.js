@@ -137,9 +137,6 @@ export function generateKeys(callback) {
 		const clientDataObj = JSON.parse(decodedClientData);
 		const decodedAttestationObj = CBOR.decode(credential.response.attestationObject);
 
-		// console.log(clientDataObj);
-		// console.log(decodedAttestationObj);
-
 		const { authData } = decodedAttestationObj;
 
 		// get the length of the credential ID
@@ -156,8 +153,8 @@ export function generateKeys(callback) {
 
 		// the publicKeyBytes are encoded again as CBOR
 		const publicKeyObject = CBOR.decode(publicKeyBytes.buffer);
-		// console.log(publicKeyObject);
 		callback(publicKeyObject["3"]);
+
 	}).catch((err) => {
 		console.error(err);
 		callback(null);
