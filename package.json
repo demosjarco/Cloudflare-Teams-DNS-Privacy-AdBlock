@@ -4,7 +4,7 @@
 	"description": "Pi-Hole Style Privacy/Ad blocking in the cloud leveraging Cloudflare for Teams Gateway DNS",
 	"main": "setupScripts/updateLibraries.js",
 	"scripts": {
-		"build": "npm ci --fund=false && wget https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js -O ./public/js/cbor.js && node .",
+		"build": "npm ci --fund=false && node .",
 		"dev": "nodemon start"
 	},
 	"repository": {
