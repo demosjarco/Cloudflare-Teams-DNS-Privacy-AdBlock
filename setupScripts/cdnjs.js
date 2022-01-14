@@ -42,12 +42,10 @@ class CDNJS {
 	}
 
 	writeHTML(libraryName, version, libraryType, filename, sri) {
-		// console.log(libraryName, version, libraryType, filename, sri);
 		const { readFileSync, writeFileSync } = require('fs');
 
 		const commentPattern = new RegExp(`(?<=<!-- ${libraryName} ${libraryType} -->\r\t+|<!-- ${libraryName} ${libraryType} -->\n\t+|<!-- ${libraryName} ${libraryType} -->\r\n\t+)[^\r\n]+`, 'i');
 		const originalHtml = readFileSync('./public/index.html', 'utf8');
-		// console.log('Original', commentPattern.exec(originalHtml)[0]);
 		let replacedHTML = '';
 		switch (libraryType) {
 			case 'css':
@@ -57,7 +55,6 @@ class CDNJS {
 				replacedHTML = originalHtml.replace(commentPattern, `<script src="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>`);
 				break;
 		}
-		// console.log('Replaced', commentPattern.exec(replacedHTML)[0]);
 		writeFileSync('./public/index.html', replacedHTML, 'utf8');
 	}
 }
