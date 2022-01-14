@@ -122,10 +122,10 @@ export function generateKeys(callback) {
 				alg: -8
 			}
 		],
-		authenticatorSelection: {
+		// authenticatorSelection: {
 			// userVerification: "required",
-			authenticatorAttachment: "platform"
-		},
+			// authenticatorAttachment: "platform"
+		// },
 		// attestation: "indirect"
 	};
 	// console.log("Key options", pubkeyOpt);
