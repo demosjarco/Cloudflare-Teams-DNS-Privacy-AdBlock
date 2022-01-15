@@ -78,7 +78,7 @@ export class Settings {
 							</form>
 						</div>`).appendTo('div#settingsModal div#settings-nav-tabContent');
 						newForm.find("form").submit((event) => {
-							formSave(event);
+							this.formSave(event);
 						});
 
 						$('div#settingsModal div#account-id').tab('show');
@@ -88,7 +88,7 @@ export class Settings {
 
 			// Intercept form save for custom save
 			$("div#settingsModal form").submit((event) => {
-				// formSave(event);
+				this.formSave(event);
 			});
 		});
 	}
@@ -167,6 +167,13 @@ export class Settings {
 			tooltipTriggerList.map(function (tooltipTriggerEl) {
 				return new bootstrap.Tooltip(tooltipTriggerEl);
 			});
+		});
+	}
+
+	formSave() {
+		$(() => {
+			console.log($(event.originalEvent.srcElement).find("input#account-id-id").val());
+			console.log($(event.originalEvent.srcElement).find("input#account-id-key").val());
 		});
 	}
 }
