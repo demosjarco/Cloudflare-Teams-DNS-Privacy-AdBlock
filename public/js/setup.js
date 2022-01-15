@@ -72,6 +72,15 @@ export class Setup {
 	}
 
 	compatibilityTab() {
+		this.localStorageCompatibility();
+		// this.localEncryptionCompatibility(() => {
+		// 	if (this.localStorageAvailable && this.localEncryptionAvailable) {
+		// 		$('div.modal#setupModal button#setup-nav-security-tab')
+		// 	}
+		// });
+	}
+
+	localStorageCompatibility() {
 		const localStorageAvailable = this.localStorageAvailable = new LocalStorage().availability;
 		$(function () {
 			$('div.modal#setupModal div#localStorage').append(`<span class="badge bg-${localStorageAvailable ? 'success' : 'danger'}"><i class="fa-solid fa-${localStorageAvailable ? 'check' : 'exclamation'}"></i></span>`);
@@ -81,5 +90,9 @@ export class Setup {
 				</div>`);
 			}
 		});
+	}
+
+	localEncryptionCompatibility(callback) {
+
 	}
 }
