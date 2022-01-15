@@ -14,10 +14,16 @@ export class Setup {
 			});
 
 			// Run compatibility tab stuff
-			this.compatibilityTab();
+			new CompatibilityTab(() => {
+				// Run security tab content
+				new SecurityTab(() => {
+					// Run settings tab content
+					new SettingsTab(() => {
+						setupComplete();
+					});
+				});
+			});
 		}
-
-		// setupComplete();
 	}
 
 	createModalDom() {
@@ -41,11 +47,7 @@ export class Setup {
 							<div class="tab-content" id="setup-nav-tabContent">
 								<div class="tab-pane fade show active" id="setup-nav-compatibility" role="tabpanel" aria-labelledby="setup-nav-compatibility-tab"></div>
 								<div class="tab-pane fade" id="setup-nav-security" role="tabpanel" aria-labelledby="setup-nav-security-tab"></div>
-								<div class="tab-pane fade" id="setup-nav-settings" role="tabpanel" aria-labelledby="setup-nav-settings-tab">
-									<div class="mt-3 mb-3">
-										<h6>Settings</h6>
-									</div>
-								</div>
+								<div class="tab-pane fade" id="setup-nav-settings" role="tabpanel" aria-labelledby="setup-nav-settings-tab"></div>
 							</div>
 						</div>
 						<div class="modal-footer justify-content-start">
@@ -56,8 +58,11 @@ export class Setup {
 			</div>`);
 		});
 	}
+}
 
-	compatibilityTab() {
+class CompatibilityTab {
+	constructor(callback) {
+		// Draw tab content
 		$(() => {
 			$('div.modal#setupModal div.tab-pane#setup-nav-compatibility').append(`<div class="mt-3 mb-3">
 				<h6>Compatibility</h6>
@@ -69,17 +74,13 @@ export class Setup {
 				Web Crypto API
 			</div>`);
 		});
+		// Check local storage compatibility
 		this.localStorageCompatibility();
+		// Check local encryption compatibility
 		this.localEncryptionCompatibility(() => {
+			// Check if both work
 			if (this.localStorageAvailable && this.localEncryptionAvailable) {
-				$(() => {
-					// Enable the security tab
-					$('div.modal#setupModal button#setup-nav-security-tab').removeClass("disabled");
-					// Jump to the security tab
-					new bootstrap.Tab($('div.modal#setupModal button.nav-link#setup-nav-security-tab')).show();
-					// Load security tab content
-					this.securityTab();
-				});
+				callback();
 			}
 		});
 	}
@@ -103,11 +104,37 @@ export class Setup {
 		this.localEncryptionAvailable = true;
 		callback();
 	}
+}
 
-	securityTab() {
+class SecurityTab {
+	constructor(callback) {
+		this.doneTab = callback;
+
 		$(() => {
+			// Enable the security tab
+			$('div.modal#setupModal button#setup-nav-security-tab').removeClass("disabled");
+			// Jump to the security tab
+			new bootstrap.Tab($('div.modal#setupModal button.nav-link#setup-nav-security-tab')).show();
+			// Draw tab content
 			$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mt-3 mb-3">
 				<h6>Security</h6>
+			</div>`);
+		});
+	}
+}
+
+class SettingsTab {
+	constructor(callback) {
+		this.doneTab = callback;
+
+		$(() => {
+			// Enable the security tab
+			$('div.modal#setupModal button#setup-nav-settings-tab').removeClass("disabled");
+			// Jump to the security tab
+			new bootstrap.Tab($('div.modal#setupModal button.nav-link#setup-nav-settings-tab')).show();
+			// Draw tab content
+			$('div.modal#setupModal div.tab-pane#setup-nav-settings').append(`<div class="mt-3 mb-3">
+				<h6>Settings</h6>
 			</div>`);
 		});
 	}
