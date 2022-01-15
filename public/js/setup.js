@@ -81,6 +81,8 @@ export class Setup {
 					$('div.modal#setupModal button#setup-nav-security-tab').removeClass("disabled");
 					// Jump to the security tab
 					new bootstrap.Tab($('div.modal#setupModal button.nav-link#setup-nav-security-tab')).show();
+					// Load security tab content
+					this.securityTab();
 				});
 			}
 		});
@@ -104,5 +106,8 @@ export class Setup {
 		// TODO
 		this.localEncryptionAvailable = true;
 		callback();
+	}
+
+	securityTab() {
 	}
 }
