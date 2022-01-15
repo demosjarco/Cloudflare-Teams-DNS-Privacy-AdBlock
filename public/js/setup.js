@@ -73,11 +73,13 @@ export class Setup {
 
 	compatibilityTab() {
 		this.localStorageCompatibility();
-		// this.localEncryptionCompatibility(() => {
-		// 	if (this.localStorageAvailable && this.localEncryptionAvailable) {
-		// 		$('div.modal#setupModal button#setup-nav-security-tab')
-		// 	}
-		// });
+		this.localEncryptionCompatibility(() => {
+			if (this.localStorageAvailable && this.localEncryptionAvailable) {
+				$(() => {
+					$('div.modal#setupModal button#setup-nav-security-tab').removeClass("disabled");
+				});
+			}
+		});
 	}
 
 	localStorageCompatibility() {
