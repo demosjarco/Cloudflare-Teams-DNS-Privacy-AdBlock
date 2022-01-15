@@ -50,9 +50,6 @@ export class Setup {
 									<div class="mb-3">
 										Web Crypto API
 									</div>
-									<div class="mb-3">
-										WebAuthn
-									</div>
 								</div>
 								<div class="tab-pane" id="setup-nav-security" role="tabpanel" aria-labelledby="setup-nav-security-tab">
 									<div class="m-3">
