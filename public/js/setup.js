@@ -145,7 +145,7 @@ class SecurityTab {
 					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').addClass("btn-success");
 					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').prop('disabled', true);
 					$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="alert alert-success" role="alert">
-						Generated keys using ${algorithmNameForId(algorithm)}
+						Generated keys using <code>${algorithmNameForId(algorithm)}</code>
 					</div>`);
 				} else {
 					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-primary");
