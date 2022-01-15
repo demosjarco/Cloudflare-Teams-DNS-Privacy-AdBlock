@@ -11,12 +11,9 @@ export class Setup {
 	}
 
 	compatibilityTab() {
-		if (new LocalStorage().availability) {
-			$(function () {
-			});
-		} else {
-			$(function () {
-			});
-		}
+		const localStorageAvailable = new LocalStorage().availability;
+		$(function () {
+			$('div.modal#setupModal div#localStorage').append(`<span class="badge bg-${localStorageAvailable ? 'success' : 'danger'}"><i class="fa-solid fa-${localStorageAvailable ? 'check' : 'exclamation'}"></i></span>`);
+		});
 	}
 }
