@@ -98,6 +98,8 @@ export class Setup {
 	}
 
 	localEncryptionCompatibility(callback) {
-
+		// TODO
+		this.localEncryptionAvailable = true;
+		callback();
 	}
 }
