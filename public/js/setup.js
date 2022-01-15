@@ -1,4 +1,7 @@
 "use strict";
+
+import { LocalStorage } from './localStorage.js';
+
 export class Setup {
 	constructor() {
 		// TODO: Check if setup completed
