@@ -6,19 +6,19 @@ const semverMaxSatisfying = require('semver/ranges/max-satisfying');
 class CDNJS {
 	constructor() {
 		this.getFontAwesome((latestVersion) => {
-			const fileName = `css/all${process.env.NODE_ENV === 'development' ? '.min' : ''}.css`;
+			const fileName = `css/all${process.env.NODE_ENV === 'production' ? '.min' : ''}.css`;
 			this.writeHTML('font-awesome', latestVersion.version, 'css', fileName, latestVersion.sri[fileName]);
 		});
 
 		this.getJquery((latestVersion) => {
-			const fileName = `jquery${process.env.NODE_ENV === 'development' ? '.min' : ''}.js`;
+			const fileName = `jquery${process.env.NODE_ENV === 'production' ? '.min' : ''}.js`;
 			this.writeHTML('jquery', latestVersion.version, 'js', fileName, latestVersion.sri[fileName]);
 		});
 
 		this.getBootstrap((latestVersion) => {
-			const fileName1 = `css/bootstrap${process.env.NODE_ENV === 'development' ? '.min' : ''}.css`;
+			const fileName1 = `css/bootstrap${process.env.NODE_ENV === 'production' ? '.min' : ''}.css`;
 			this.writeHTML('bootstrap', latestVersion.version, 'css', fileName1, latestVersion.sri[fileName1]);
-			const fileName2 = `js/bootstrap.bundle${process.env.NODE_ENV === 'development' ? '.min' : ''}.js`;
+			const fileName2 = `js/bootstrap.bundle${process.env.NODE_ENV === 'production' ? '.min' : ''}.js`;
 			this.writeHTML('bootstrap', latestVersion.version, 'js', fileName2, latestVersion.sri[fileName2]);
 		})
 	}
