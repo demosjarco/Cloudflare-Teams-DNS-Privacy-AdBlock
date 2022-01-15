@@ -1,6 +1,6 @@
-import { generateKeys, algorithmNameForId } from './cryptoMethods.js';
+// import { generateKeys, algorithmNameForId } from './cryptoMethods.js';
 
-let tooltipTriggerList;
+/*let tooltipTriggerList;
 $(function () {
 	tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 	$("div#settingsModal button#addAccount").click((event) => {
@@ -120,13 +120,13 @@ function storageAvailable(type) {
 }
 
 function encryptedStorageAvailable(testResult) {
-	/*generateKeys((privateKey, publicKey) => {
-		if (privateKey && publicKey) {
-			testResult(true, privateKey.algorithm);
-		} else {
-			testResult(false);
-		}
-	});*/
+	// generateKeys((privateKey, publicKey) => {
+	// 	if (privateKey && publicKey) {
+	// 		testResult(true, privateKey.algorithm);
+	// 	} else {
+	// 		testResult(false);
+	// 	}
+	// });
 }
 
 function webauthnAvailable(testResult) {
@@ -146,4 +146,4 @@ function webauthnAvailable(testResult) {
 			});
 		});
 	});
-}
+}*/
