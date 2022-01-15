@@ -2,6 +2,11 @@
 
 // import { generateKeys, algorithmNameForId } from './cryptoMethods.js';
 
+export class Settings {
+	constructor() {
+	}
+}
+
 /*let tooltipTriggerList;
 $(function () {
 	tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
