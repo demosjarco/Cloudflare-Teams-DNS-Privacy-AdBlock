@@ -64,6 +64,7 @@ export class Setup {
 							</div>
 						</div>
 						<div class="modal-footer justify-content-start">
+							<p>Use the tabs at the top to go through the setup screen</p>
 						</div>
 					</div>
 				</div>
