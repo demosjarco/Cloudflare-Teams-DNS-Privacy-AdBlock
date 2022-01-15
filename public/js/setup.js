@@ -8,7 +8,7 @@ export class Setup {
 		if (true) {
 			// Create modal dom
 			this.createModalDom();
-			$(function () {
+			$(() => {
 				// Show modal
 				new bootstrap.Modal($('div#setupModal')).show();
 			});
@@ -21,7 +21,7 @@ export class Setup {
 	}
 
 	createModalDom() {
-		$(function () {
+		$(() => {
 			$('body').append(`<!-- Setup Modal -->
 			<div class="modal fade" id="setupModal" tabindex="-1" aria-labelledby="setupModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -82,7 +82,7 @@ export class Setup {
 
 	localStorageCompatibility() {
 		const localStorageAvailable = this.localStorageAvailable = new LocalStorage().availability;
-		$(function () {
+		$(() => {
 			$('div.modal#setupModal div#localStorage').append(`<span class="badge bg-${localStorageAvailable ? 'success' : 'danger'}"><i class="fa-solid fa-${localStorageAvailable ? 'check' : 'exclamation'}"></i></span>`);
 			if (!localStorageAvailable) {
 				$('div.modal#setupModal div#localStorage').append(`<div class="alert alert-danger mt-3" role="alert">
