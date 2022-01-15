@@ -52,12 +52,12 @@ export class Setup {
 									</div>
 								</div>
 								<div class="tab-pane" id="setup-nav-security" role="tabpanel" aria-labelledby="setup-nav-security-tab">
-									<div class="m-3">
+									<div class="mt-3 mb-3">
 										<h6>Security</h6>
 									</div>
 								</div>
 								<div class="tab-pane" id="setup-nav-settings" role="tabpanel" aria-labelledby="setup-nav-settings-tab">
-									<div class="m-3">
+									<div class="mt-3 mb-3">
 										<h6>Settings</h6>
 									</div>
 								</div>
