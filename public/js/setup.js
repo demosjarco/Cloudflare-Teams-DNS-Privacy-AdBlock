@@ -17,7 +17,7 @@ export class Setup {
 			this.compatibilityTab();
 		}
 
-		setupComplete();
+		// setupComplete();
 	}
 
 	createModalDom() {
