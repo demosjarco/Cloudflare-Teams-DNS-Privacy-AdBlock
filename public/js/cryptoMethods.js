@@ -125,8 +125,7 @@ export function generateKeys(callback) {
 			}
 		],
 		// authenticatorSelection: {
-			// userVerification: "required",
-			// authenticatorAttachment: "platform"
+			// userVerification: "required"
 		// },
 		// attestation: "indirect"
 	};
