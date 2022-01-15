@@ -23,7 +23,7 @@ export class Setup {
 	createModalDom() {
 		$(() => {
 			$('body').append(`<!-- Setup Modal -->
-			<div class="modal fade" id="setupModal" tabindex="-1" aria-labelledby="setupModalLabel" aria-hidden="true">
+			<div class="modal fade" id="setupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="setupModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 					<div class="modal-content">
 						<div class="modal-header bg-light">
