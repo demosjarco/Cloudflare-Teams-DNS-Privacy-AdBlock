@@ -3,7 +3,7 @@
 import { LocalStorage } from './localStorage.js';
 
 export class Setup {
-	constructor() {
+	constructor(setupComplete) {
 		// TODO: Check if setup completed
 		if (true) {
 			// Create modal dom
@@ -16,6 +16,8 @@ export class Setup {
 			// Run compatibility tab stuff
 			this.compatibilityTab();
 		}
+
+		setupComplete();
 	}
 
 	createModalDom() {
