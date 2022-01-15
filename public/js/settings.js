@@ -1,3 +1,5 @@
+"use strict";
+
 // import { generateKeys, algorithmNameForId } from './cryptoMethods.js';
 
 /*let tooltipTriggerList;
