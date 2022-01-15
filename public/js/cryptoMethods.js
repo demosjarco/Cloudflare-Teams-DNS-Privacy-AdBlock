@@ -127,7 +127,7 @@ export function generateKeys(callback) {
 		// authenticatorSelection: {
 			// userVerification: "required"
 		// },
-		// attestation: "indirect"
+		attestation: "indirect"
 	};
 	// console.log("Key options", pubkeyOpt);
 	navigator.credentials.create({
