@@ -36,7 +36,6 @@ export class Setup {
 									<button class="nav-link active" id="setup-nav-compatibility-tab" data-bs-toggle="tab" data-bs-target="#setup-nav-compatibility" type="button" role="tab" aria-controls="setup-nav-compatibility" aria-selected="true"><i class="fa-solid fa-list-check"></i></button>
 									<button class="nav-link disabled" id="setup-nav-security-tab" data-bs-toggle="tab" data-bs-target="#setup-nav-security" type="button" role="tab" aria-controls="setup-nav-security" aria-selected="false"><i class="fa-solid fa-user-shield"></i></button>
 									<button class="nav-link disabled" id="setup-nav-settings-tab" data-bs-toggle="tab" data-bs-target="#setup-nav-settings" type="button" role="tab" aria-controls="setup-nav-settings" aria-selected="false"><i class="fa-solid fa-gear"></i></button>
-									<button class="nav-link disabled" id="setup-nav-settings-tab" data-bs-toggle="tab" data-bs-target="#setup-nav-settings" type="button" role="tab" aria-controls="setup-nav-settings" aria-selected="false"><i class="fa-solid fa-gears"></i></button>
 								</div>
 							</nav>
 							<div class="tab-content" id="setup-nav-tabContent">
