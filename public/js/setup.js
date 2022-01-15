@@ -40,22 +40,8 @@ export class Setup {
 								</div>
 							</nav>
 							<div class="tab-content" id="setup-nav-tabContent">
-								<div class="tab-pane fade show active" id="setup-nav-compatibility" role="tabpanel" aria-labelledby="setup-nav-compatibility-tab">
-									<div class="mt-3 mb-3">
-										<h6>Compatibility</h6>
-									</div>
-									<div class="mb-3" id="localStorage">
-										Local Storage
-									</div>
-									<div class="mb-3">
-										Web Crypto API
-									</div>
-								</div>
-								<div class="tab-pane fade" id="setup-nav-security" role="tabpanel" aria-labelledby="setup-nav-security-tab">
-									<div class="mt-3 mb-3">
-										<h6>Security</h6>
-									</div>
-								</div>
+								<div class="tab-pane fade show active" id="setup-nav-compatibility" role="tabpanel" aria-labelledby="setup-nav-compatibility-tab"></div>
+								<div class="tab-pane fade" id="setup-nav-security" role="tabpanel" aria-labelledby="setup-nav-security-tab"></div>
 								<div class="tab-pane fade" id="setup-nav-settings" role="tabpanel" aria-labelledby="setup-nav-settings-tab">
 									<div class="mt-3 mb-3">
 										<h6>Settings</h6>
@@ -73,6 +59,17 @@ export class Setup {
 	}
 
 	compatibilityTab() {
+		$(() => {
+			$('div.modal#setupModal div.tab-pane#setup-nav-compatibility').append(`<div class="mt-3 mb-3">
+				<h6>Compatibility</h6>
+			</div>
+			<div class="mb-3" id="localStorage">
+				Local Storage
+			</div>
+			<div class="mb-3">
+				Web Crypto API
+			</div>`);
+		});
 		this.localStorageCompatibility();
 		this.localEncryptionCompatibility(() => {
 			if (this.localStorageAvailable && this.localEncryptionAvailable) {
@@ -109,5 +106,10 @@ export class Setup {
 	}
 
 	securityTab() {
+		$(() => {
+			$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mt-3 mb-3">
+				<h6>Security</h6>
+			</div>`);
+		});
 	}
 }
