@@ -1,5 +1,6 @@
 "use strict";
 
+import { generateKeys, algorithmNameForId } from './cryptoMethods.js';
 import { LocalStorage } from './localStorage.js';
 
 export class Setup {
@@ -118,7 +119,41 @@ class SecurityTab {
 			// Draw tab content
 			$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mt-3 mb-3">
 				<h6>Security</h6>
+			</div>
+			<div class="mb-3" id="">
+				<b>Register</b>
+				<details>
+					<summary>This replaces a password with your device login</summary>
+					<p>This website uses your hardware security (such as HSMs, TPMs, etc) for management of the keys used to encrypt data</p>
+				</details>
+			</div>
+			<div class="mb-3" id="">
+				<button type="button" class="btn btn-outline-primary mb-3" id="generateWebathnKeys">Generate keys</button><span id="algorithm"></span>
+				<p><small>Click the button above and follow your browser or device's instructions.</small></p>
 			</div>`);
+			// Generate button onclick
+			$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').click(this.generateWebauthnKeys);;
+		});
+	}
+
+	generateWebauthnKeys() {
+		generateKeys((algorithm) => {
+			$(() => {
+				if (algorithm) {
+					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-primary");
+					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-danger");
+					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').addClass("btn-success");
+					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').prop('disabled', true);
+					$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="alert alert-success" role="alert">
+						Generated keys using ${algorithmNameForId(algorithm)}
+					</div>`);
+				} else {
+					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-primary");
+					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').addClass("btn-outline-danger");
+					// $("div#settingsModal span#localKeysAvailable").prop("title", `Not available. Please refresh and try your authentication again`);
+					console.log(`Not available. Please refresh and try your authentication again`);
+				}
+			});
 		});
 	}
 }
