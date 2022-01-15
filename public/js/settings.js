@@ -170,7 +170,7 @@ export class Settings {
 		});
 	}
 
-	formSave() {
+	formSave(event) {
 		$(() => {
 			console.log($(event.originalEvent.srcElement).find("input#account-id-id").val());
 			console.log($(event.originalEvent.srcElement).find("input#account-id-key").val());
