@@ -11,5 +11,12 @@ export class Setup {
 	}
 
 	compatibilityTab() {
+		if (new LocalStorage().availability) {
+			$(function () {
+			});
+		} else {
+			$(function () {
+			});
+		}
 	}
 }
