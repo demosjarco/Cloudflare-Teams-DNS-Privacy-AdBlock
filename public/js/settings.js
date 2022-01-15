@@ -5,11 +5,43 @@
 export class Settings {
 	constructor() {
 		this.createButton();
+		this.createModalDom();
 	}
 
 	createButton() {
 		$(() => {
 			$('body > nav').append(`<button type="button" class="btn btn-secondary justify-content-end" data-bs-toggle="modal" data-bs-target="#settingsModal">Settings</button>`);
+		});
+	}
+
+	createModalDom() {
+		$(() => {
+			$('body').append(`<!-- Settings Modal -->
+			<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="modal-header bg-light">
+							<h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body bg-body">
+							<!-- <div class="mb-3">
+								<p></p>
+							</div> -->
+							<nav>
+								<div class="nav nav-tabs nav-fill" id="settings-nav-tab" role="tablist">
+									<button type="button" class="btn btn-outline-success" id="addAccount"><i class="fa-solid fa-plus"></i></button>
+								</div>
+							</nav>
+							<div class="tab-content" id="settings-nav-tabContent"></div>
+						</div>
+						<div class="modal-footer justify-content-start">
+							<p>Enter your Cloudflare Account ID(s) and <a href="https://dash.cloudflare.com/profile/api-tokens">API Key(s)</a> for this tool to communicate with the Cloudflare API in order to perform the <a href="">tasks</a> in this tool. No data is sent anywhere other than the <a href="https://api.cloudflare.com/#getting-started-requests">Cloudflare API</a> itself.</p>
+							<p>All data is stored locally using your browser's <span id="localStorageAvailable" class="badge rounded-pill bg-primary" data-bs-toggle="tooltip">Local Storage</span>, encrypted with <span id="localCryptoAvailable" class="badge rounded-pill bg-primary" data-bs-toggle="tooltip">Web Crypto API</span>, and signed with <span id="localKeysAvailable" class="badge rounded-pill bg-primary" data-bs-toggle="tooltip">WebAuthn</span>.</p>
+						</div>
+					</div>
+				</div>
+			</div>`);
 		});
 	}
 }
