@@ -75,7 +75,8 @@ export class Setup {
 	}
 
 	compatibilityTab() {
-		const localStorageAvailable = new LocalStorage().availability;
+		const localStorageAvailable = this.localStorageAvailable = new LocalStorage().availability;
+		console.log(this.localStorageAvailable);
 		$(function () {
 			$('div.modal#setupModal div#localStorage').append(`<span class="badge bg-${localStorageAvailable ? 'success' : 'danger'}"><i class="fa-solid fa-${localStorageAvailable ? 'check' : 'exclamation'}"></i></span>`);
 			if (!localStorageAvailable) {
