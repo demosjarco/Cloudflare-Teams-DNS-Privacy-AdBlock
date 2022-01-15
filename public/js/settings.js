@@ -4,6 +4,13 @@
 
 export class Settings {
 	constructor() {
+		this.createButton();
+	}
+
+	createButton() {
+		$(() => {
+			$('body > nav').append(`<button type="button" class="btn btn-secondary justify-content-end" data-bs-toggle="modal" data-bs-target="#settingsModal">Settings</button>`);
+		});
 	}
 }
 
