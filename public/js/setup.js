@@ -40,7 +40,7 @@ export class Setup {
 								</div>
 							</nav>
 							<div class="tab-content" id="setup-nav-tabContent">
-								<div class="tab-pane show active" id="setup-nav-compatibility" role="tabpanel" aria-labelledby="setup-nav-compatibility-tab">
+								<div class="tab-pane fade show active" id="setup-nav-compatibility" role="tabpanel" aria-labelledby="setup-nav-compatibility-tab">
 									<div class="mt-3 mb-3">
 										<h6>Compatibility</h6>
 									</div>
@@ -51,12 +51,12 @@ export class Setup {
 										Web Crypto API
 									</div>
 								</div>
-								<div class="tab-pane" id="setup-nav-security" role="tabpanel" aria-labelledby="setup-nav-security-tab">
+								<div class="tab-pane fade" id="setup-nav-security" role="tabpanel" aria-labelledby="setup-nav-security-tab">
 									<div class="mt-3 mb-3">
 										<h6>Security</h6>
 									</div>
 								</div>
-								<div class="tab-pane" id="setup-nav-settings" role="tabpanel" aria-labelledby="setup-nav-settings-tab">
+								<div class="tab-pane fade" id="setup-nav-settings" role="tabpanel" aria-labelledby="setup-nav-settings-tab">
 									<div class="mt-3 mb-3">
 										<h6>Settings</h6>
 									</div>
