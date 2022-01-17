@@ -23,12 +23,6 @@ class CDNJS {
 		})
 	}
 
-	getJquery(callback) {
-		cdnjsApi.lib('jquery').then(result => {
-			callback(result.assets.find(({ version }) => version === semverMaxSatisfying(result.versions, process.env.JQUERY_VERSION || '')));
-		});
-	}
-
 	getBootstrap(callback) {
 		cdnjsApi.lib('bootstrap').then(result => {
 			callback(result.assets.find(({ version }) => version === semverMaxSatisfying(result.versions, process.env.BOOTSTRAP_VERSION || '')));
@@ -38,6 +32,12 @@ class CDNJS {
 	getFontAwesome(callback) {
 		cdnjsApi.lib('font-awesome').then(result => {
 			callback(result.assets.find(({ version }) => version === semverMaxSatisfying(result.versions, process.env.FONTAWESOME_VERSION || '')));
+		});
+	}
+
+	getJquery(callback) {
+		cdnjsApi.lib('jquery').then(result => {
+			callback(result.assets.find(({ version }) => version === semverMaxSatisfying(result.versions, process.env.JQUERY_VERSION || '')));
 		});
 	}
 
