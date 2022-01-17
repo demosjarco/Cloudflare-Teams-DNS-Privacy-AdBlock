@@ -48,7 +48,7 @@ export class CryptTasks {
 		}
 	}
 
-	generateKeys(callback) {
+	generateKeys(successCallback, errorCallback) {
 		let pubKeyChallenge = this.genSecureId(8);
 		let userid = this.genSecureId(8);
 		let pubkeyOpt = {
@@ -159,12 +159,12 @@ export class CryptTasks {
 
 			// the publicKeyBytes are encoded again as CBOR
 			const publicKeyObject = CBOR.decode(publicKeyBytes.buffer);
-			callback(publicKeyObject["3"]);
+			successCallback(publicKeyObject["3"]);
 
 			// store the publicKeyBytes and credentialId
 			this.localStorage.savePublicKey(publicKeyBytes, credentialId);
 		}).catch((err) => {
-			callback(null);
+			errorCallback(err);
 		});
 	}
 }
