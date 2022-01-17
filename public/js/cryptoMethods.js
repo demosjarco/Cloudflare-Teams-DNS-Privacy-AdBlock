@@ -164,7 +164,6 @@ export class CryptTasks {
 			// store the publicKeyBytes and credentialId
 			this.localStorage.savePublicKey(publicKeyBytes, credentialId);
 		}).catch((err) => {
-			console.error(err);
 			callback(null);
 		});
 	}
