@@ -38,6 +38,14 @@ export class LocalStorage extends Storage {
 	constructor(type = 'localStorage') {
 		super(type);
 	}
+
+	// const ui8a = new Uint8Array();
+	// const string = btoa(ui8a);
+	// const ui8a_2 = atob(string).split(',');
+	savePublicKey(publicKeyBytes = new Uint8Array(272), credentialId = new Uint8Array(32)) {
+		this.storage.setItem('pubKey', btoa(publicKeyBytes));
+		this.storage.setItem('keyCred', btoa(credentialId));
+	}
 }
 
 export class SessionStorage extends Storage {
