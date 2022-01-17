@@ -51,7 +51,7 @@ class CDNJS {
 				replacedHTML = originalHtml.replace(commentPattern, `<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" as="style" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" onload="this.onload=null;this.rel='stylesheet'" />\n\t<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" /></noscript>`);
 				break;
 			case 'js':
-				replacedHTML = originalHtml.replace(commentPattern, `<script src="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>`);
+				replacedHTML = originalHtml.replace(commentPattern, `<script src="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>`);
 				break;
 		}
 		writeFileSync('./public/index.html', replacedHTML, 'utf8');
