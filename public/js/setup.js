@@ -63,6 +63,7 @@ export class Setup {
 
 class CompatibilityTab {
 	constructor(callback) {
+		this.doneTab = callback;
 		// Draw tab content
 		$(() => {
 			$('div.modal#setupModal div.tab-pane#setup-nav-compatibility').append(`<div class="mt-3 mb-3">
@@ -81,7 +82,7 @@ class CompatibilityTab {
 		this.localEncryptionCompatibility(() => {
 			// Check if both work
 			if (this.localStorageAvailable && this.localEncryptionAvailable) {
-				callback();
+				this.doneTab();
 			}
 		});
 	}
@@ -103,7 +104,7 @@ class CompatibilityTab {
 	localEncryptionCompatibility(callback) {
 		// TODO
 		this.localEncryptionAvailable = true;
-		callback();
+		this.doneTab();
 	}
 }
 
