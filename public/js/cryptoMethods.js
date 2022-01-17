@@ -1,9 +1,8 @@
 "use strict";
 
-import { LocalStorage } from './localStorage.js';
-
 export class CryptTasks {
-	constructor() {
+	constructor(localStorage) {
+		this.localStorage = localStorage;
 	}
 
 	genSecureId(size = 1) {
@@ -163,8 +162,7 @@ export class CryptTasks {
 			callback(publicKeyObject["3"]);
 
 			// store the publicKeyBytes and credentialId
-			const storage = new LocalStorage();
-			storage.savePublicKey(publicKeyBytes, credentialId);
+			this.localStorage.savePublicKey(publicKeyBytes, credentialId);
 		}).catch((err) => {
 			console.error(err);
 			callback(null);

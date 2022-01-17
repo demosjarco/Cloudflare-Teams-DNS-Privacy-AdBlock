@@ -5,6 +5,7 @@ import { LocalStorage } from './localStorage.js';
 
 export class Setup {
 	constructor(setupComplete) {
+		this.persistantStorage = new LocalStorage();
 		// TODO: Check if setup completed
 		if (true) {
 			// Create modal dom
@@ -15,9 +16,9 @@ export class Setup {
 			});
 
 			// Run compatibility tab stuff
-			new CompatibilityTab(() => {
+			new CompatibilityTab(this.persistantStorage, () => {
 				// Run security tab content
-				new SecurityTab(() => {
+				new SecurityTab(this.persistantStorage, () => {
 					// Run settings tab content
 					new SettingsTab(() => {
 						setupComplete();
@@ -62,8 +63,10 @@ export class Setup {
 }
 
 class CompatibilityTab {
-	constructor(callback) {
+	constructor(persistantStorage, callback) {
+		this.persistantStorage = persistantStorage;
 		this.doneTab = callback;
+
 		// Draw tab content
 		$(() => {
 			$('div.modal#setupModal div.tab-pane#setup-nav-compatibility').append(`<div class="mt-3 mb-3">
@@ -88,7 +91,7 @@ class CompatibilityTab {
 	}
 
 	localStorageCompatibility() {
-		const localStorageAvailable = this.localStorageAvailable = new LocalStorage().availability;
+		const localStorageAvailable = this.localStorageAvailable = this.persistantStorage.availability;
 		$(() => {
 			$('div.modal#setupModal div#localStorage').append(`<span class="badge bg-${localStorageAvailable ? 'success' : 'danger'}"><i class="fa-solid fa-${localStorageAvailable ? 'check' : 'exclamation'}"></i></span>`);
 		});
@@ -109,7 +112,8 @@ class CompatibilityTab {
 }
 
 class SecurityTab {
-	constructor(callback) {
+	constructor(persistantStorage, callback) {
+		this.persistantStorage = persistantStorage;
 		this.doneTab = callback;
 
 		$(() => {
@@ -133,12 +137,14 @@ class SecurityTab {
 				<p><small>Click the button above and follow your browser or device's instructions.</small></p>
 			</div>`);
 			// Generate button onclick
-			$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').click(this.generateWebauthnKeys);;
+			$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').click(() => {
+				this.generateWebauthnKeys();
+			});;
 		});
 	}
 
 	generateWebauthnKeys() {
-		const webauthn = new CryptTasks();
+		const webauthn = new CryptTasks(this.persistantStorage);
 		webauthn.generateKeys((algorithm) => {
 			$(() => {
 				if (algorithm) {
