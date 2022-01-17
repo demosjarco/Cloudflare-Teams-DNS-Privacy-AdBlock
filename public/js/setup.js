@@ -132,7 +132,7 @@ class SecurityTab {
 					<p>This website uses your hardware security (such as HSMs, TPMs, etc) for management of the keys used to encrypt data</p>
 				</details>
 			</div>
-			<div class="mb-3" id="">
+			<div class="mb-3" id="keyGeneration">
 				<button type="button" class="btn btn-outline-primary mb-3" id="generateWebathnKeys">Generate keys</button><span id="algorithm"></span>
 				<p><small>Click the button above and follow your browser or device's instructions.</small></p>
 			</div>`);
@@ -147,20 +147,33 @@ class SecurityTab {
 		const webauthn = new CryptTasks(this.persistantStorage);
 		webauthn.generateKeys((algorithm) => {
 			$(() => {
-				if (algorithm) {
-					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-primary");
-					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-danger");
-					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').addClass("btn-success");
-					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').prop('disabled', true);
-					$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="alert alert-success" role="alert">
-						Generated keys using <code>${webauthn.algorithmNameForId(algorithm)}</code>
-					</div>`);
-				} else {
-					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-primary");
-					$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').addClass("btn-outline-danger");
-					// $("div#settingsModal span#localKeysAvailable").prop("title", `Not available. Please refresh and try your authentication again`);
-					console.log(`Not available. Please refresh and try your authentication again`);
-				}
+				// Remove original button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-primary");
+				// Remove error button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-danger");
+				// Remove error popup
+				$('div.modal#setupModal div#keyGeneration div.alert.alert-danger').remove();
+				// Add success button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').addClass("btn-success");
+				// Disable generate button
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').prop('disabled', true);
+				// Show security key format
+				$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="alert alert-success" role="alert">Generated keys using <code>${webauthn.algorithmNameForId(algorithm)}</code></div>`);
+				// Move on to next tab
+				setTimeout(() => {
+					$(() => {
+						this.doneTab();
+					});
+				}, 3 * 1000);
+			});
+		}, (error) => {
+			$(() => {
+				// Remove original button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-primary");
+				// Add error button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').addClass("btn-outline-danger");
+				// Add error popup
+				$('div.modal#setupModal div#keyGeneration').append(`<div class="alert alert-danger mt-3" role="alert">${error.message}</div>`);
 			});
 		});
 	}
