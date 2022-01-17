@@ -39,9 +39,24 @@ export class LocalStorage extends Storage {
 		super(type);
 	}
 
-	// const ui8a = new Uint8Array();
-	// const string = btoa(ui8a);
-	// const ui8a_2 = atob(string).split(',');
+	get publicKeyBytes() {
+		// Convert from base64 to array
+		const bufferArray = atob(this.storage.getItem('pubKey')).split(',');
+		// Convert string values to number values
+		const numberedArray = bufferArray.map((x) => { return Number(x, 10); });
+		// Convert from regular array to Uint8Array
+		return Uint8Array.from(numberedArray);
+	}
+
+	get credentialId() {
+		// Convert from base64 to array
+		const bufferArray = atob(this.storage.getItem('keyCred')).split(',');
+		// Convert string values to number values
+		const numberedArray = bufferArray.map((x) => { return Number(x, 10); });
+		// Convert from regular array to Uint8Array
+		return Uint8Array.from(numberedArray);
+	}
+
 	savePublicKey(publicKeyBytes = new Uint8Array(272), credentialId = new Uint8Array(32)) {
 		this.storage.setItem('pubKey', btoa(publicKeyBytes));
 		this.storage.setItem('keyCred', btoa(credentialId));
