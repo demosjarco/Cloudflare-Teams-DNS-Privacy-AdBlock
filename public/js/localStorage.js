@@ -28,6 +28,10 @@ class Storage {
 				(this.storage && this.storage.length !== 0);
 		}
 	}
+
+	set cleanSlate() {
+		this.storage.clear();
+	}
 }
 
 export class LocalStorage extends Storage {
