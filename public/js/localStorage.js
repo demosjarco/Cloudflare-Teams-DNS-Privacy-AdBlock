@@ -29,7 +29,7 @@ class Storage {
 		}
 	}
 
-	set cleanSlate() {
+	cleanSlate() {
 		this.storage.clear();
 	}
 }
