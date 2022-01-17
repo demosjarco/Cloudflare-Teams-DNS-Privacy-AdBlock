@@ -1,3 +1,5 @@
+"use strict";
+
 export function genSecureId(size = 1) {
 	let array = new Uint32Array(size);
 	window.crypto.getRandomValues(array);
@@ -123,10 +125,9 @@ export function generateKeys(callback) {
 			}
 		],
 		// authenticatorSelection: {
-			// userVerification: "required",
-			// authenticatorAttachment: "platform"
+			// userVerification: "required"
 		// },
-		// attestation: "indirect"
+		attestation: "indirect"
 	};
 	// console.log("Key options", pubkeyOpt);
 	navigator.credentials.create({
