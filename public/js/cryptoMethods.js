@@ -52,12 +52,12 @@ export class CryptTasks {
 		navigator.credentials.get({
 			publicKey: {
 				challenge: Uint8Array.from(this.genSecureId(8), c => c.charCodeAt(0)),
+				timeout: 60000,
 				// allowCredentials: [{
 				// 	// id: Uint8Array.from(this.localStorage.credentialId, c => c.charCodeAt(0)),
 				// 	id: this.localStorage.credentialId,
 				// 	type: 'public-key',
 				// }],
-				timeout: 60000,
 			}
 		}).then((assertion) => {
 			console.log(assertion);
