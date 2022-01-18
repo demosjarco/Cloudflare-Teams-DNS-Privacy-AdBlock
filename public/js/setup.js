@@ -115,6 +115,7 @@ class SecurityTab {
 	constructor(persistantStorage, callback) {
 		this.persistantStorage = persistantStorage;
 		this.doneTab = callback;
+		this.webauthn = new CryptTasks(this.persistantStorage);
 
 		$(() => {
 			// Enable the security tab
@@ -144,8 +145,7 @@ class SecurityTab {
 	}
 
 	generateWebauthnKeys() {
-		const webauthn = new CryptTasks(this.persistantStorage);
-		webauthn.generateKeys((algorithm) => {
+		this.webauthn.generateKeys((algorithm) => {
 			$(() => {
 				// Remove original button styling
 				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').removeClass("btn-outline-primary");
@@ -158,7 +158,7 @@ class SecurityTab {
 				// Disable generate button
 				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').prop('disabled', true);
 				// Show security key format
-				$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="alert alert-success" role="alert">Generated keys using <code>${webauthn.algorithmNameForId(algorithm)}</code></div>`);
+				$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="alert alert-success" role="alert">Generated keys using <code>${this.webauthn.algorithmNameForId(algorithm)}</code></div>`);
 				// Move on to next tab
 				setTimeout(() => {
 					$(() => {
