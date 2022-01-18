@@ -132,9 +132,21 @@ class SecurityTab {
 					<summary>This replaces a password with your device login</summary>
 					<p>This website uses your hardware security (such as HSMs, TPMs, etc) for management of the keys used to encrypt data</p>
 				</details>
-			</div>
-			<div class="mb-3" id="keyGeneration">
-				<button type="button" class="btn btn-outline-primary mb-3" id="generateWebathnKeys">Generate keys</button><span id="algorithm"></span>
+			</div>`);
+		});
+
+		this.performAuthentication();
+	}
+
+	performAuthentication() {
+		this.webauthn.loadKeys(() => {
+			// Authenticated successfully
+		}, (error) => {
+			// Authentication error
+		});
+		$(() => {
+			$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mb-3" id="keyGeneration">
+				<button type="button" class="btn btn-outline-primary mb-3" id="generateWebathnKeys" disabled>Generate keys</button><span id="algorithm"></span>
 				<p><small>Click the button above and follow your browser or device's instructions.</small></p>
 			</div>`);
 			// Generate button onclick
@@ -142,6 +154,9 @@ class SecurityTab {
 				this.generateWebauthnKeys();
 			});;
 		});
+	}
+
+	loadWebauthnKeys() {
 	}
 
 	generateWebauthnKeys() {

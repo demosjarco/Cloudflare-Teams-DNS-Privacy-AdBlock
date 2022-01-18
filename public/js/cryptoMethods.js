@@ -48,6 +48,26 @@ export class CryptTasks {
 		}
 	}
 
+	loadKeys(successCallback, errorCallback) {
+		navigator.credentials.get({
+			publicKey: {
+				challenge: Uint8Array.from(this.genSecureId(8), c => c.charCodeAt(0)),
+				// allowCredentials: [{
+				// 	// id: Uint8Array.from(this.localStorage.credentialId, c => c.charCodeAt(0)),
+				// 	id: this.localStorage.credentialId,
+				// 	type: 'public-key',
+				// }],
+				timeout: 60000,
+			}
+		}).then((assertion) => {
+			console.log(assertion);
+			// successCallback(assertion);
+		}).catch((err) => {
+			console.error(err);
+			// errorCallback(err);
+		});
+	}
+
 	generateKeys(successCallback, errorCallback) {
 		const pubKeyChallenge = this.genSecureId(8);
 		const userid = this.genSecureId(8);
