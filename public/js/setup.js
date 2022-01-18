@@ -175,6 +175,8 @@ class SecurityTab {
 				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').removeClass("btn-outline-primary");
 				// Add error button styling
 				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').addClass("btn-outline-danger");
+				// Remove old error popup
+				$('div.modal#setupModal div#keyLoading div.alert.alert-danger').remove();
 				// Add error popup
 				$('div.modal#setupModal div#keyLoading').append(`<div class="alert alert-danger mt-3" role="alert">${error.message}</div>`);
 
