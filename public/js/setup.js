@@ -139,24 +139,56 @@ class SecurityTab {
 	}
 
 	performAuthentication() {
-		this.webauthn.loadKeys(() => {
-			// Authenticated successfully
-		}, (error) => {
-			// Authentication error
-		});
 		$(() => {
-			$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mb-3" id="keyGeneration">
-				<button type="button" class="btn btn-outline-primary mb-3" id="generateWebathnKeys" disabled>Generate keys</button><span id="algorithm"></span>
-				<p><small>Click the button above and follow your browser or device's instructions.</small></p>
+			$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mb-3" id="keyLoading">
+				<button type="button" class="btn btn-outline-primary mb-3" id="loadWebathnKeys">Load existing keys</button><span id="algorithm"></span>
+				<p><small>Click the button above and follow your browser or device's instructions. If the list is empty or you get prompted for a security method you don't have/use, just close out to continue below</small></p>
 			</div>`);
 			// Generate button onclick
-			$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').click(() => {
-				this.generateWebauthnKeys();
+			$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').click(() => {
+				this.loadWebauthnKeys();
 			});;
 		});
 	}
 
 	loadWebauthnKeys() {
+		this.webauthn.loadKeys((assertion) => {
+			// Authenticated successfully
+			$(() => {
+				// Remove original button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').removeClass("btn-outline-primary");
+				// Remove error button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').removeClass("btn-outline-danger");
+				// Remove error popup
+				$('div.modal#setupModal div#keyLoading div.alert.alert-danger').remove();
+				// Add success button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').addClass("btn-success");
+				// Disable load keys button
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').prop('disabled', true);
+				// Show security key format
+				$('div.modal#setupModal div#keyLoading').append(`<div class="alert alert-success" role="alert">Loaded keys using <code>${assertion}</code></div>`);
+			});
+		}, (error) => {
+			// Authentication error
+			$(() => {
+				// Remove original button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').removeClass("btn-outline-primary");
+				// Add error button styling
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').addClass("btn-outline-danger");
+				// Add error popup
+				$('div.modal#setupModal div#keyLoading').append(`<div class="alert alert-danger mt-3" role="alert">${error.message}</div>`);
+
+				// Load generation segment
+				$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mb-3" id="keyGeneration">
+					<button type="button" class="btn btn-outline-primary mb-3" id="generateWebathnKeys">Generate keys</button><span id="algorithm"></span>
+					<p><small>Click the button above and follow your browser or device's instructions.</small></p>
+				</div>`);
+				// Generate button onclick
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').click(() => {
+					this.generateWebauthnKeys();
+				});;
+			});
+		});
 	}
 
 	generateWebauthnKeys() {
@@ -170,10 +202,12 @@ class SecurityTab {
 				$('div.modal#setupModal div#keyGeneration div.alert.alert-danger').remove();
 				// Add success button styling
 				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').addClass("btn-success");
+				// Disable load keys button
+				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').prop('disabled', true);
 				// Disable generate button
 				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').prop('disabled', true);
 				// Show security key format
-				$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="alert alert-success" role="alert">Generated keys using <code>${this.webauthn.algorithmNameForId(algorithm)}</code></div>`);
+				$('div.modal#setupModal div#keyGeneration').append(`<div class="alert alert-success" role="alert">Generated keys using <code>${this.webauthn.algorithmNameForId(algorithm)}</code></div>`);
 				// Move on to next tab
 				setTimeout(() => {
 					$(() => {

@@ -61,10 +61,13 @@ export class CryptTasks {
 			}
 		}).then((assertion) => {
 			console.log(assertion);
-			// successCallback(assertion);
+			const utf8Decoder = new TextDecoder('utf-8');
+			const decodedClientData = utf8Decoder.decode(assertion.response.clientDataJSON);
+			console.log(decodedClientData);
+			// https://webauthn.guide/#authentication
+			successCallback(assertion);
 		}).catch((err) => {
-			console.error(err);
-			// errorCallback(err);
+			errorCallback(err);
 		});
 	}
 
