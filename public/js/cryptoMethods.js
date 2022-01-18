@@ -51,92 +51,91 @@ export class CryptTasks {
 	generateKeys(successCallback, errorCallback) {
 		const pubKeyChallenge = this.genSecureId(8);
 		const userid = this.genSecureId(8);
-		const pubkeyOpt = {
-			challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
-			rp: {
-				name: "cftdpa",
-				// id: "cftdpa.pages.dev"
-			},
-			user: {
-				name: "Local User",
-				displayName: "Local User",
-				id: Uint8Array.from(userid, c => c.charCodeAt(0)),
-			},
-			pubKeyCredParams: [
-				// ECDSA w/ SHA-512
-				{
-					type: "public-key",
-					alg: -36
-				},
-				// ECDSA w/ SHA-384
-				{
-					type: "public-key",
-					alg: -35
-				},
-				// ECDSA using secp256k1 curve and SHA-256
-				{
-					type: "public-key",
-					alg: -47
-				},
-				// ECDSA w/ SHA-256
-				{
-					type: "public-key",
-					alg: -7
-				},
-				// RSASSA-PSS w/ SHA-512
-				{
-					type: "public-key",
-					alg: -39
-				},
-				// RSASSA-PSS w/ SHA-384
-				{
-					type: "public-key",
-					alg: -38
-				},
-				// RSASSA-PSS w/ SHA-256
-				{
-					type: "public-key",
-					alg: -37
-				},
-				// RSAES-OAEP w/ SHA-512
-				{
-					type: "public-key",
-					alg: -42
-				},
-				// RSAES-OAEP w/ SHA-256
-				{
-					type: "public-key",
-					alg: -41
-				},
-				// RSASSA-PKCS1-v1_5 using SHA-512
-				{
-					type: "public-key",
-					alg: -259
-				},
-				// RSASSA-PKCS1-v1_5 using SHA-384
-				{
-					type: "public-key",
-					alg: -258
-				},
-				// RSASSA-PKCS1-v1_5 using SHA-256
-				{
-					type: "public-key",
-					alg: -257
-				},
-				// EdDSA
-				{
-					type: "public-key",
-					alg: -8
-				}
-			],
-			// authenticatorSelection: {
-			// userVerification: "required"
-			// },
-			attestation: "indirect"
-		};
 		// console.log("Key options", pubkeyOpt);
 		navigator.credentials.create({
-			publicKey: pubkeyOpt
+			publicKey: {
+				challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
+				rp: {
+					name: "cftdpa",
+					// id: "cftdpa.pages.dev"
+				},
+				user: {
+					name: "Local User",
+					displayName: "Local User",
+					id: Uint8Array.from(userid, c => c.charCodeAt(0)),
+				},
+				pubKeyCredParams: [
+					// ECDSA w/ SHA-512
+					{
+						type: "public-key",
+						alg: -36
+					},
+					// ECDSA w/ SHA-384
+					{
+						type: "public-key",
+						alg: -35
+					},
+					// ECDSA using secp256k1 curve and SHA-256
+					{
+						type: "public-key",
+						alg: -47
+					},
+					// ECDSA w/ SHA-256
+					{
+						type: "public-key",
+						alg: -7
+					},
+					// RSASSA-PSS w/ SHA-512
+					{
+						type: "public-key",
+						alg: -39
+					},
+					// RSASSA-PSS w/ SHA-384
+					{
+						type: "public-key",
+						alg: -38
+					},
+					// RSASSA-PSS w/ SHA-256
+					{
+						type: "public-key",
+						alg: -37
+					},
+					// RSAES-OAEP w/ SHA-512
+					{
+						type: "public-key",
+						alg: -42
+					},
+					// RSAES-OAEP w/ SHA-256
+					{
+						type: "public-key",
+						alg: -41
+					},
+					// RSASSA-PKCS1-v1_5 using SHA-512
+					{
+						type: "public-key",
+						alg: -259
+					},
+					// RSASSA-PKCS1-v1_5 using SHA-384
+					{
+						type: "public-key",
+						alg: -258
+					},
+					// RSASSA-PKCS1-v1_5 using SHA-256
+					{
+						type: "public-key",
+						alg: -257
+					},
+					// EdDSA
+					{
+						type: "public-key",
+						alg: -8
+					}
+				],
+				// authenticatorSelection: {
+				// userVerification: "required"
+				// },
+				attestation: "indirect"
+			}
 		}).then((credential) => {
 			const utf8Decoder = new TextDecoder('utf-8');
 			const decodedClientData = utf8Decoder.decode(credential.response.clientDataJSON);
