@@ -49,9 +49,9 @@ export class CryptTasks {
 	}
 
 	generateKeys(successCallback, errorCallback) {
-		let pubKeyChallenge = this.genSecureId(8);
-		let userid = this.genSecureId(8);
-		let pubkeyOpt = {
+		const pubKeyChallenge = this.genSecureId(8);
+		const userid = this.genSecureId(8);
+		const pubkeyOpt = {
 			challenge: Uint8Array.from(pubKeyChallenge, c => c.charCodeAt(0)),
 			rp: {
 				name: "cftdpa",
