@@ -181,10 +181,12 @@ class SecurityTab {
 				$('div.modal#setupModal div#keyLoading').append(`<div class="alert alert-danger mt-3" role="alert">${error.message}</div>`);
 
 				// Load generation segment
-				$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mb-3" id="keyGeneration">
-					<button type="button" class="btn btn-outline-primary mb-3" id="generateWebathnKeys">Generate keys</button><span id="algorithm"></span>
-					<p><small>Click the button above and follow your browser or device's instructions.</small></p>
-				</div>`);
+				if (!$('div.modal#setupModal div.tab-pane#setup-nav-security div#keyGeneration').length) {
+					$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mb-3" id="keyGeneration">
+						<button type="button" class="btn btn-outline-primary mb-3" id="generateWebathnKeys">Generate keys</button><span id="algorithm"></span>
+						<p><small>Click the button above and follow your browser or device's instructions.</small></p>
+					</div>`);
+				}
 				// Generate button onclick
 				$('div.modal#setupModal div.tab-pane#setup-nav-security button#generateWebathnKeys').click(() => {
 					this.generateWebauthnKeys();
