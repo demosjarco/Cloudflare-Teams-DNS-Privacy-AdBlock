@@ -125,7 +125,7 @@ class SecurityTab {
 			$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mt-3 mb-3">
 				<h6>Security</h6>
 			</div>
-			<div class="mb-3" id="">
+			<div class="mb-3">
 				<b>Register</b>
 				<details>
 					<summary>This replaces a password with your device login</summary>
