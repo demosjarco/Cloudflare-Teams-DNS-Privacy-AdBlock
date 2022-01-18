@@ -152,7 +152,7 @@ export class CryptTasks {
 					}
 				],
 				// authenticatorSelection: {
-				// userVerification: "required"
+				// 	userVerification: "required"
 				// },
 				attestation: "indirect"
 			}
