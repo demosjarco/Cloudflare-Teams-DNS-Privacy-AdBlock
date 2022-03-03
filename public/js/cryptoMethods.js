@@ -191,3 +191,24 @@ export class CryptTasks {
 	}
 
 	getPasswordKey(password) {
+		return crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+	}
+
+	deriveKey(passwordKey, salt, keyUsage) {
+		return window.crypto.subtle.deriveKey(
+			{
+				name: "PBKDF2",
+				hash: "SHA-512",
+				salt: salt,
+				iterations: 250000,
+			},
+			passwordKey,
+			{
+				name: "AES-GCM",
+				length: 256
+			},
+			false,
+			keyUsage
+		);
+	}
+}
