@@ -142,7 +142,7 @@ class SecurityTab {
 		$(() => {
 			$('div.modal#setupModal div.tab-pane#setup-nav-security').append(`<div class="mb-3" id="keyLoading">
 				<button type="button" class="btn btn-outline-primary mb-3" id="loadWebathnKeys">Load existing keys</button><span id="algorithm"></span>
-				<p><small>Click the button above and follow your browser or device's instructions. If the list is empty or you get prompted for a security method you don't have/use, just close out to continue below</small></p>
+				<p><small>Click the button above and follow your browser or device's instructions. If the list is empty or you get prompted for a security method you don't have/use, just close out and continue below</small></p>
 			</div>`);
 			// Generate button onclick
 			$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').click(() => {
