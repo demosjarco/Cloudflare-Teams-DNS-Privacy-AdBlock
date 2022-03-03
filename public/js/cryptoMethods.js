@@ -190,6 +190,14 @@ export class CryptTasks {
 		});
 	}
 
+	buff_to_base64(buff) {
+		return btoa(String.fromCharCode.apply(null, buff));
+	}
+
+	base64_to_buf(b64) {
+		return Uint8Array.from(atob(b64), (c) => c.charCodeAt(null));
+	}
+
 	getPasswordKey(password) {
 		return crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
 	}
@@ -210,5 +218,54 @@ export class CryptTasks {
 			false,
 			keyUsage
 		);
+	}
+
+	encryptData(plaintext, password, cipherResult) {
+		const salt = window.crypto.getRandomValues(new Uint8Array(16));
+		const iv = window.crypto.getRandomValues(new Uint8Array(12));
+		this.getPasswordKey(password).then((passwordKey) => {
+			this.deriveKey(passwordKey, salt, ["encrypt"]).then((aesKey) => {
+				window.crypto.subtle.encrypt(
+					{
+						name: "AES-GCM",
+						iv: iv,
+					},
+					aesKey,
+					new TextEncoder().encode(plaintext)
+				).then((encryptedContent) => {
+					const encryptedContentArr = new Uint8Array(encryptedContent);
+
+					let buff = new Uint8Array(
+						salt.byteLength + iv.byteLength + encryptedContentArr.byteLength
+					);
+					buff.set(salt, 0);
+					buff.set(iv, salt.byteLength);
+					buff.set(encryptedContentArr, salt.byteLength + iv.byteLength);
+					const base64Buff = this.buff_to_base64(buff);
+					cipherResult(base64Buff);
+				});
+			})
+		});
+	}
+
+	decryptData(ciphertext, password, plainResult) {
+		const encryptedDataBuff = this.base64_to_buf(ciphertext);
+		const salt = encryptedDataBuff.slice(0, 16);
+		const iv = encryptedDataBuff.slice(16, 16 + 12);
+		const data = encryptedDataBuff.slice(16 + 12);
+		this.getPasswordKey(password).then((passwordKey) => {
+			this.deriveKey(passwordKey, salt, ["decrypt"]).then((aesKey) => {
+				window.crypto.subtle.decrypt(
+					{
+						name: "AES-GCM",
+						iv: iv,
+					},
+					aesKey,
+					data
+				).then((decryptedContent) => {
+					plainResult(new TextDecoder().decode(decryptedContent));
+				});
+			});
+		});
 	}
 }

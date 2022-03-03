@@ -75,7 +75,7 @@ class CompatibilityTab {
 			<div class="mb-3" id="localStorage">
 				Local Storage
 			</div>
-			<div class="mb-3">
+			<div class="mb-3" id="localEncrypt">
 				Web Crypto API
 			</div>`);
 		});
@@ -105,9 +105,29 @@ class CompatibilityTab {
 	}
 
 	localEncryptionCompatibility(callback) {
-		// TODO
-		this.localEncryptionAvailable = true;
-		this.doneTab();
+		if (window.crypto.subtle) {
+			const samplePlaintext = new CryptTasks().genSecureId(3);
+			const samplePassword = new CryptTasks().genSecureId(3);
+			// console.log(`Plaintext: ${samplePlaintext} ecrypted with ${samplePassword}`);
+			new CryptTasks().encryptData(samplePlaintext, samplePassword, (ciphertext) => {
+				// console.log(`Ciphertext: "${ciphertext}"`);
+				new CryptTasks().decryptData(ciphertext, samplePassword, (plaintext) => {
+					// console.log(`Plaintext: "${plaintext}"`);
+					this.localEncryptionAvailable = samplePlaintext == plaintext;
+					$(() => {
+						$('div.modal#setupModal div#localEncrypt').append(`<span class="badge bg-${this.localEncryptionAvailable ? 'success' : 'danger'}"><i class="fa-solid fa-${this.localEncryptionAvailable ? 'check' : 'exclamation'}"></i></span>`);
+					});
+					if (!this.localEncryptionAvailable) {
+						$(() => {
+							$('div.modal#setupModal div#localEncryptlocalEncrypt').append(`<div class="alert alert-danger mt-3" role="alert">
+								Please make sure your browser supports <a href="https://caniuse.com/mdn-api_window_crypto">crypto</a> and/or has permission</div>`);
+						});
+					} else {
+						this.doneTab();
+					}
+				});
+			});
+		}
 	}
 }
 
