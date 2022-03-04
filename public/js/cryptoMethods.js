@@ -200,7 +200,11 @@ export class CryptTasks {
 	}
 
 	getPasswordKey(password) {
-		return crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+		if (password instanceof Uint8Array) {
+			return crypto.subtle.importKey("raw", password, "PBKDF2", false, ["deriveKey"]);
+		} else {
+			return crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+		}
 	}
 
 	deriveKey(passwordKey, salt, keyUsage) {
