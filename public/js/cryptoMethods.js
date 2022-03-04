@@ -1,6 +1,9 @@
 "use strict";
 
 export class CryptTasks {
+	#saltBits = 128;
+	#ivBits = 96;
+
 	constructor(localStorage) {
 		this.localStorage = localStorage;
 	}
@@ -221,14 +224,15 @@ export class CryptTasks {
 	}
 
 	encryptData(plaintext, password, cipherResult) {
-		const salt = window.crypto.getRandomValues(new Uint8Array(16));
-		const iv = window.crypto.getRandomValues(new Uint8Array(12));
+		const salt = window.crypto.getRandomValues(new Uint8Array(this.#saltBits / 8));
+		const iv = window.crypto.getRandomValues(new Uint8Array(this.#ivBits / 8));
 		this.getPasswordKey(password).then((passwordKey) => {
 			this.deriveKey(passwordKey, salt, ["encrypt"]).then((aesKey) => {
 				window.crypto.subtle.encrypt(
 					{
 						name: "AES-GCM",
 						iv: iv,
+						tagLength: 128
 					},
 					aesKey,
 					new TextEncoder().encode(plaintext)
@@ -250,9 +254,9 @@ export class CryptTasks {
 
 	decryptData(ciphertext, password, plainResult) {
 		const encryptedDataBuff = this.base64_to_buf(ciphertext);
-		const salt = encryptedDataBuff.slice(0, 16);
-		const iv = encryptedDataBuff.slice(16, 16 + 12);
-		const data = encryptedDataBuff.slice(16 + 12);
+		const salt = encryptedDataBuff.slice(0, this.#saltBits / 8);
+		const iv = encryptedDataBuff.slice(this.#saltBits / 8, this.#saltBits / 8 + this.#ivBits / 8);
+		const data = encryptedDataBuff.slice(this.#saltBits / 8 + this.#ivBits / 8);
 		this.getPasswordKey(password).then((passwordKey) => {
 			this.deriveKey(passwordKey, salt, ["decrypt"]).then((aesKey) => {
 				window.crypto.subtle.decrypt(
