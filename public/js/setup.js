@@ -106,13 +106,10 @@ class CompatibilityTab {
 
 	localEncryptionCompatibility(callback) {
 		if (window.crypto.subtle) {
-			// console.log(`Plaintext: ${samplePlaintext} ecrypted with ${samplePassword}`);
 			const samplePlaintext = new CryptTasks().genSecureId();
 			const samplePassword = new CryptTasks().genSecureId();
 			new CryptTasks().encryptData(samplePlaintext, samplePassword, (ciphertext) => {
-				// console.log(`Ciphertext: "${ciphertext}"`);
 				new CryptTasks().decryptData(ciphertext, samplePassword, (plaintext) => {
-					// console.log(`Plaintext: "${plaintext}"`);
 					this.localEncryptionAvailable = samplePlaintext == plaintext;
 					$(() => {
 						$('div.modal#setupModal div#localEncrypt').append(`<span class="badge bg-${this.localEncryptionAvailable ? 'success' : 'danger'}"><i class="fa-solid fa-${this.localEncryptionAvailable ? 'check' : 'exclamation'}"></i></span>`);
