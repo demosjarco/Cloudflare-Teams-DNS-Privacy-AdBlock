@@ -182,7 +182,13 @@ class SecurityTab {
 				// Disable load keys button
 				$('div.modal#setupModal div.tab-pane#setup-nav-security button#loadWebathnKeys').prop('disabled', true);
 				// Show security key format
-				$('div.modal#setupModal div#keyLoading').append(`<div class="alert alert-success" role="alert">Loaded keys using <code>${assertion}</code></div>`);
+				$('div.modal#setupModal div#keyLoading').append(`<div class="alert alert-success" role="alert">Loaded keys using with challenge <code>${assertion.challenge}</code></div>`);
+				// Move on to next tab
+				setTimeout(() => {
+					$(() => {
+						this.doneTab();
+					});
+				}, 3 * 1000);
 			});
 		}, (error) => {
 			// Authentication error
