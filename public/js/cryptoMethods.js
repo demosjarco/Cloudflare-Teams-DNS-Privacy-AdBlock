@@ -3,6 +3,7 @@
 export class CryptTasks {
 	#saltBits = 128;
 	#ivBits = 96;
+	#sigPass;
 
 	constructor(localStorage) {
 		this.localStorage = localStorage;
@@ -63,6 +64,7 @@ export class CryptTasks {
 				// }],
 			}
 		}).then((assertion) => {
+			this.#sigPass = this.buff_to_base64(new Uint8Array(assertion.response.signature));
 			const decodedClientData = JSON.parse(new TextDecoder('utf-8').decode(assertion.response.clientDataJSON));
 			// https://webauthn.guide/#authentication
 			successCallback(decodedClientData);
