@@ -106,9 +106,9 @@ class CompatibilityTab {
 
 	localEncryptionCompatibility(callback) {
 		if (window.crypto.subtle) {
-			const samplePlaintext = new CryptTasks().genSecureId(3);
-			const samplePassword = new CryptTasks().genSecureId(3);
 			// console.log(`Plaintext: ${samplePlaintext} ecrypted with ${samplePassword}`);
+			const samplePlaintext = new CryptTasks().genSecureId();
+			const samplePassword = new CryptTasks().genSecureId();
 			new CryptTasks().encryptData(samplePlaintext, samplePassword, (ciphertext) => {
 				// console.log(`Ciphertext: "${ciphertext}"`);
 				new CryptTasks().decryptData(ciphertext, samplePassword, (plaintext) => {
