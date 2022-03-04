@@ -63,10 +63,8 @@ export class CryptTasks {
 				// }],
 			}
 		}).then((assertion) => {
-			const utf8Decoder = new TextDecoder('utf-8');
-			const decodedClientData = utf8Decoder.decode(assertion.response.clientDataJSON);
 			// console.log(assertion);
-			console.log(decodedClientData);
+			const decodedClientData = new TextDecoder('utf-8').decode(assertion.response.clientDataJSON);
 			// https://webauthn.guide/#authentication
 			successCallback(assertion);
 		}).catch((err) => {
