@@ -119,9 +119,8 @@ class CompatibilityTab {
 							$('div.modal#setupModal div#localEncryptlocalEncrypt').append(`<div class="alert alert-danger mt-3" role="alert">
 								Please make sure your browser supports <a href="https://caniuse.com/mdn-api_window_crypto">crypto</a> and/or has permission</div>`);
 						});
-					} else {
-						this.doneTab();
 					}
+					callback();
 				});
 			});
 		}
