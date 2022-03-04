@@ -191,6 +191,18 @@ export class CryptTasks {
 		});
 	}
 
+	validateKey() {
+		// const storedCredential = await getCredentialFromDatabase(userHandle, credentialId);
+		// const signedData = (authenticatorDataBytes + hashedClientDataJSON);
+		// const signatureIsValid = storedCredential.publicKey.verify(signature, signedData);
+
+		// if (signatureIsValid) {
+		// 	// Valid signature
+		// } else {
+		// 	// Failure
+		// }
+	}
+
 	buff_to_base64(buff) {
 		return btoa(String.fromCharCode.apply(null, buff));
 	}
