@@ -64,7 +64,7 @@ export class CryptTasks {
 			}
 		}).then((assertion) => {
 			// console.log(assertion);
-			const decodedClientData = new TextDecoder('utf-8').decode(assertion.response.clientDataJSON);
+			const decodedClientData = JSON.parse(new TextDecoder('utf-8').decode(assertion.response.clientDataJSON));
 			// https://webauthn.guide/#authentication
 			successCallback(assertion);
 		}).catch((err) => {
