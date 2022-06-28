@@ -22,7 +22,7 @@
 	},
 	"homepage": "https://cftdpa.pages.dev",
 	"devDependencies": {
-		"nodemon": "^2.0.15"
+		"nodemon": "^2.0.18"
 	},
 	"dependencies": {
 		"axios": "^0.26.0",
