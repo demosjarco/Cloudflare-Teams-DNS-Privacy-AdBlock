@@ -2,9 +2,11 @@
 
 class GitHub {
 	constructor() {
-		const axios = require('axios').default;
+		const axios = require('axios');
 
-		axios.get('https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js', {
+		axios({
+			url: 'https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js',
+			method: 'get',
 			responseType: 'stream',
 			maxContentLength: 20000 // 20kb
 		}).catch((error) => {
