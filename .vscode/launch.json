@@ -11,7 +11,7 @@
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}\\setupScripts\\updateLibraries.js",
+			"program": "${workspaceFolder}\\server.js",
 			"env": {
 				"BOOTSTRAP_VERSION": "^5.2.2",
 				"FONTAWESOME_VERSION": "^6.2.0",
