@@ -12,7 +12,7 @@ class GitHub {
 		}).then((response) => {
 			const { createWriteStream } = require('fs');
 			response.data.pipe(createWriteStream('./public/js/cbor.js'));
-		});;
+		});
 	}
 }
 
