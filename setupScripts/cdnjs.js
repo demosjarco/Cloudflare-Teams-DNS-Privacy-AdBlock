@@ -72,7 +72,7 @@ class CDNJS {
 			console.log(`Wrote ${libraryName} ${libraryType} to html`);
 		}
 
-		console.log('DEBUG1', replacedHTML, 'DEBUG2', readFileSync('./public/index.html', 'utf8'));
+		console.log('debug', readFileSync('./public/index.html', 'utf8'));
 	}
 }
 
