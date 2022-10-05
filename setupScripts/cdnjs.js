@@ -44,15 +44,15 @@ class CDNJS {
 	writeHTML(libraryName, version, libraryType, filename, sri) {
 		const { readFileSync, writeFileSync } = require('fs');
 
-		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n)\\t+)[^]+(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
+		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n))\\t?[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
 		const originalHtml = readFileSync('./public/index.html', 'utf8');
 		let replacedHTML = '';
 		switch (libraryType) {
 			case 'css':
-				replacedHTML = originalHtml.replace(commentPattern, `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" />`);
+				replacedHTML = originalHtml.replace(commentPattern, `\t<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" />`);
 				break;
 			case 'js':
-				replacedHTML = originalHtml.replace(commentPattern, `<script src="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>`);
+				replacedHTML = originalHtml.replace(commentPattern, `\t<script src="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>`);
 				break;
 		}
 		writeFileSync('./public/index.html', replacedHTML, 'utf8');
