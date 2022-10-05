@@ -5,7 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"build": "npm start",
-		"dev": "node . && wrangler pages dev ./public --local --ip \"localhost\" --live-reload --local-protocol https"
+		"dev": "node . && wrangler pages dev ./public --local --ip \"localhost\" --live-reload true --local-protocol https"
 	},
 	"repository": {
 		"type": "git",
