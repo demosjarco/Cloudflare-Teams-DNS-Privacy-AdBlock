@@ -2,7 +2,7 @@
 	"name": "cloudflare-teams-dns-privacy-adblock",
 	"version": "1.0.0",
 	"description": "Pi-Hole Style Privacy/Ad blocking in the cloud leveraging Cloudflare for Teams Gateway DNS",
-	"main": "setupScripts/updateLibraries.js",
+	"main": "server.js",
 	"scripts": {
 		"build": "npm ci --fund=false && node .",
 		"dev": "node . && wrangler pages dev ./public --local --ip \"localhost\" --live-reload --local-protocol https"
