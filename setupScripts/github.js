@@ -35,7 +35,7 @@ class GitHub {
 		let replacedHTML = '';
 		switch (libraryType) {
 			case 'js':
-				replacedHTML = originalHtml.replace(commentPattern, `\t<script src="${filePath}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>`);
+				replacedHTML = originalHtml.replace(commentPattern, `\t<script src="${filePath}" integrity="${sri}" referrerpolicy="no-referrer" defer></script>`);
 				break;
 		}
 		writeFileSync('./public/index.html', replacedHTML, 'utf8');
