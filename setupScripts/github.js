@@ -36,7 +36,7 @@ class GitHub {
 	writeHTML(libraryName, libraryType, filePath, sri) {
 		const { readFileSync, writeFileSync } = require('node:fs');
 
-		const commentPatternPreload = new RegExp(`(?<=<!-- start preload ${libraryName} ${libraryType} -->(\r|\n|\r\n))\\t?[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
+		const commentPatternPreload = new RegExp(`(?<=<!-- start preload ${libraryName} ${libraryType} -->(\r|\n|\r\n))\\t?[^]*(?=(\r|\n|\r\n)\\t+<!-- end preload ${libraryName} ${libraryType} -->)`, 'i');
 		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n))\\t?[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
 		const originalHtml = readFileSync('./public/index.html', 'utf8');
 		let replacedHTML = '';
