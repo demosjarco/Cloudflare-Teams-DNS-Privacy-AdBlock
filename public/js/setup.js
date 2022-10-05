@@ -36,7 +36,7 @@ export class Setup {
 					<div class="modal-content">
 						<div class="modal-header bg-light">
 							<h5 class="modal-title" id="setupModalLabel">Setup</h5>
-							<!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+							<button type="button" class="btn-close disabled" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body bg-body">
 							<nav>
@@ -259,13 +259,16 @@ class SettingsTab {
 		this.doneTab = callback;
 
 		$(() => {
+			// Enable the close button
+			$('div.modal#setupModal button.btn-close').removeClass('disabled');
 			// Enable the security tab
-			$('div.modal#setupModal button#setup-nav-settings-tab').removeClass("disabled");
+			$('div.modal#setupModal div.modal-header button#setup-nav-settings-tab').removeClass('disabled');
 			// Jump to the security tab
 			new bootstrap.Tab($('div.modal#setupModal button.nav-link#setup-nav-settings-tab')).show();
 			// Draw tab content
 			$('div.modal#setupModal div.tab-pane#setup-nav-settings').append(`<div class="mt-3 mb-3">
 				<h6>Settings</h6>
+				<p>TODO</p>
 			</div>`);
 		});
 	}
