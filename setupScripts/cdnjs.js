@@ -44,7 +44,7 @@ class CDNJS {
 	writeHTML(libraryName, version, libraryType, filename, sri) {
 		const { readFileSync, writeFileSync } = require('fs');
 
-		const commentPattern = new RegExp(`(?<=<!-- ${libraryName} ${libraryType} -->\r\t+|<!-- ${libraryName} ${libraryType} -->\n\t+|<!-- ${libraryName} ${libraryType} -->\r\n\t+)[^\r\n]+`, 'i');
+		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n)\\t+)[^]+(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
 		const originalHtml = readFileSync('./public/index.html', 'utf8');
 		let replacedHTML = '';
 		switch (libraryType) {
