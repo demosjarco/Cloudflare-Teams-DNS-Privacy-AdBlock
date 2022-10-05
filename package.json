@@ -4,7 +4,8 @@
 	"description": "Pi-Hole Style Privacy/Ad blocking in the cloud leveraging Cloudflare for Teams Gateway DNS",
 	"main": "server.js",
 	"scripts": {
-		"build": "npm ci --fund=false && node .",
+		"build": "npm start",
+		"prestart": "npm ci --fund=false",
 		"dev": "node . && wrangler pages dev ./public --local --ip \"localhost\" --live-reload --local-protocol https"
 	},
 	"repository": {
