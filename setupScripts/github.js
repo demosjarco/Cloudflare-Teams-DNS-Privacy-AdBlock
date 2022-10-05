@@ -31,7 +31,6 @@ class GitHub {
 		const { readFileSync, writeFileSync } = require('node:fs');
 
 		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n))\\t?[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
-		console.log(commentPattern);
 		const originalHtml = readFileSync('./public/index.html', 'utf8');
 		let replacedHTML = '';
 		switch (libraryType) {
