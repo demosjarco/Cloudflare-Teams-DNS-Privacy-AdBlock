@@ -1,0 +1,22 @@
+{
+	"printWidth": 9007199254740991,
+	"tabWidth": 4,
+	"useTabs": true,
+	"semi": true,
+	"singleQuote": true,
+	"quoteProps": "as-needed",
+	"trailingComma": "all",
+	"bracketSpacing": true,
+	"bracketSameLine": true,
+	"arrowParens": "always",
+	"endOfLine": "lf",
+	"overrides": [
+		{
+			"files": ".github/**.yml",
+			"options": {
+				"tabWidth": 2,
+				"useTabs": false
+			}
+		}
+	]
+}

@@ -11,7 +11,7 @@ class GitHub {
 			url: 'https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js',
 			method: 'get',
 			responseType: 'stream',
-			maxContentLength: 20000 // 20kb
+			maxContentLength: 20000, // 20kb
 		}).catch((error) => {
 			throw error;
 		}).then((response) => {
