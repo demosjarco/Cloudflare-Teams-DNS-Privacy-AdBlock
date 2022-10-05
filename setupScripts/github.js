@@ -3,6 +3,9 @@
 class GitHub {
 	constructor() {
 		const axios = require('axios');
+		const { createWriteStream } = require('fs');
+
+		const endFile = createWriteStream('./public/js/cbor.js');
 
 		axios({
 			url: 'https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js',
@@ -12,8 +15,7 @@ class GitHub {
 		}).catch((error) => {
 			throw error;
 		}).then((response) => {
-			const { createWriteStream } = require('fs');
-			response.data.pipe(createWriteStream('./public/js/cbor.js'));
+			response.data.pipe(endFile);
 		});
 	}
 }
