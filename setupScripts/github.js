@@ -36,14 +36,14 @@ class GitHub {
 	writeHTML(libraryName, libraryType, filePath, sri) {
 		const { readFileSync, writeFileSync } = require('node:fs');
 
-		const commentPatternPreload = new RegExp(`(?<=<!-- start preload ${libraryName} ${libraryType} -->(\r|\n|\r\n))\\t?[^]*(?=(\r|\n|\r\n)\\t+<!-- end preload ${libraryName} ${libraryType} -->)`, 'i');
-		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n))\\t?[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
+		const commentPatternPreload = new RegExp(`(?<=<!-- start preload ${libraryName} ${libraryType} -->(\r|\n|\r\n)\\t)[^]*(?=(\r|\n|\r\n)\\t+<!-- end preload ${libraryName} ${libraryType} -->)`, 'i');
+		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n)\\t)[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
 		const originalHtml = readFileSync('./public/index.html', 'utf8');
 		let replacedHTML = '';
 		switch (libraryType) {
 			case 'js':
-				replacedHTML = originalHtml.replace(commentPatternPreload, `\t<link rel="preload" href="${filePath}" as="script" />`);
-				replacedHTML = originalHtml.replace(commentPattern, `\t<script src="${filePath}" integrity="${sri}" referrerpolicy="no-referrer" defer></script>`);
+				replacedHTML = originalHtml.replace(commentPatternPreload, `<link rel="preload" href="${filePath}" as="script" />`);
+				replacedHTML = originalHtml.replace(commentPattern, `<script src="${filePath}" integrity="${sri}" referrerpolicy="no-referrer" defer></script>`);
 				break;
 		}
 		writeFileSync('./public/index.html', replacedHTML, 'utf8');
