@@ -22,6 +22,12 @@ class GitHub {
 			response.data.pipe(hash);
 		}).finally(() => {
 			endFile.once('close', () => {
+				if (process.env.NODE_ENV === 'development') {
+					console.log(`Downloaded ${'https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js'} to ${'./public/js/cbor.js'}`);
+				} else {
+					console.log('Downloaded cbor')
+				}
+				
 				this.writeHTML('cbor', 'js', './public/js/cbor.js', `${hashFormat}-${hash.digest().toString('base64')}`);
 			});
 		});
@@ -39,6 +45,12 @@ class GitHub {
 				break;
 		}
 		writeFileSync('./public/index.html', replacedHTML, 'utf8');
+
+		if (process.env.NODE_ENV == 'development') {
+			console.log(`Wrote ${libraryName} ${libraryType} (${filePath}) to html with sri (${sri})`);
+		} else {
+			console.log(`Wrote ${libraryName} ${libraryType} to html`);
+		}
 	}
 }
 

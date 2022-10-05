@@ -42,6 +42,12 @@ class CDNJS {
 	}
 
 	writeHTML(libraryName, version, libraryType, filename, sri) {
+		if (process.env.NODE_ENV === 'development') {
+			console.log(`Got (https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}) as ${libraryName} ${libraryType} ${version}`);
+		} else {
+			console.log(`Got Got ${libraryName} ${libraryType} ${version}`);
+		}
+		
 		const { readFileSync, writeFileSync } = require('fs');
 
 		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n))\\t?[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
@@ -56,6 +62,12 @@ class CDNJS {
 				break;
 		}
 		writeFileSync('./public/index.html', replacedHTML, 'utf8');
+
+		if (process.env.NODE_ENV == 'development') {
+			console.log(`Wrote ${libraryName} ${libraryType} (https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}) to html with sri (${sri})`);
+		} else {
+			console.log(`Wrote ${libraryName} ${libraryType} to html`);
+		}
 	}
 }
 
