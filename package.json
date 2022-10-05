@@ -5,7 +5,6 @@
 	"main": "server.js",
 	"scripts": {
 		"build": "npm start",
-		"prestart": "npm ci --fund=false",
 		"dev": "node . && wrangler pages dev ./public --local --ip \"localhost\" --live-reload --local-protocol https"
 	},
 	"repository": {
