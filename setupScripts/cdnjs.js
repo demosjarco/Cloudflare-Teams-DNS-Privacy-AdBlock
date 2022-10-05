@@ -71,6 +71,8 @@ class CDNJS {
 		} else {
 			console.log(`Wrote ${libraryName} ${libraryType} to html`);
 		}
+
+		console.log('debug', readFileSync('./public/index.html', 'utf8'));
 	}
 }
 
