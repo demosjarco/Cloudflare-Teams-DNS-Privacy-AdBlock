@@ -2,7 +2,7 @@
 
 class GitHub {
 	constructor() {
-		const axios = require('axios');
+		const axios = require('axios').default;
 		const { createWriteStream } = require('node:fs');
 		const { createHash } = require('node:crypto');
 
