@@ -56,11 +56,11 @@ class CDNJS {
 		let replacedHTML = originalHtml;
 		switch (libraryType) {
 			case 'css':
-				replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" as="style" crossorigin="anonymous" />`);
+				replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" as="style" crossorigin="anonymous" referrerpolicy="no-referrer" />`);
 				replacedHTML = replacedHTML.replace(commentPattern, `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" />`);
 				break;
 			case 'js':
-				replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" as="script" crossorigin="anonymous" />`);
+				replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" as="script" crossorigin="anonymous" referrerpolicy="no-referrer" />`);
 				replacedHTML = replacedHTML.replace(commentPattern, `<script src="https://cdnjs.cloudflare.com/ajax/libs/${libraryName}/${version}/${filename}" integrity="${sri}" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>`);
 				break;
 		}
