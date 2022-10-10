@@ -42,7 +42,7 @@ class GitHub {
 		let replacedHTML = originalHtml;
 		switch (libraryType) {
 			case 'js':
-				replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="${filePath}" as="script" />`);
+				replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="${filePath}" integrity="${sri}" as="script" />`);
 				replacedHTML = replacedHTML.replace(commentPattern, `<script src="${filePath}" integrity="${sri}" referrerpolicy="no-referrer" defer></script>`);
 				break;
 		}
