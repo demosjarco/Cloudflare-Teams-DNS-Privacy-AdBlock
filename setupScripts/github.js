@@ -28,7 +28,7 @@ class GitHub {
 					console.log('Downloaded cbor')
 				}
 				
-				this.writeHTML('cbor', 'js', './public/js/cbor.js', `${hashFormat}-${hash.digest().toString('base64')}`);
+				this.writeHTML('cbor', 'js', './js/cbor.js', `${hashFormat}-${hash.digest().toString('base64')}`);
 			});
 		});
 	}
