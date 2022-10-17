@@ -10,8 +10,9 @@ class GitHub {
 		const hashFormat = 'sha512';
 		const hash = createHash(hashFormat);
 
-		axios.get({
+		axios({
 			url: '/paroga/cbor-js/master/cbor.js',
+			method: 'get',
 			baseURL: 'https://raw.githubusercontent.com',
 			responseType: 'stream',
 			maxContentLength: 20000, // 20kb
