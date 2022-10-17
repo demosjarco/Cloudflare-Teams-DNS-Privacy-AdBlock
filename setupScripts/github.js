@@ -11,7 +11,8 @@ class GitHub {
 		const hash = createHash(hashFormat);
 
 		axios.get({
-			url: 'https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js',
+			url: '/paroga/cbor-js/master/cbor.js',
+			baseURL: 'https://raw.githubusercontent.com',
 			responseType: 'stream',
 			maxContentLength: 20000, // 20kb
 		}).catch((error) => {
