@@ -25,7 +25,7 @@ class GitHub {
 				if (process.env.NODE_ENV === 'development') {
 					console.log(`Downloaded ${'https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js'} to ${'./public/js/cbor.js'}`);
 				} else {
-					console.log('Downloaded cbor')
+					console.log('Downloaded cbor');
 				}
 				
 				this.writeHTML('cbor', 'js', './js/cbor.js', `${hashFormat}-${hash.digest().toString('base64')}`);
