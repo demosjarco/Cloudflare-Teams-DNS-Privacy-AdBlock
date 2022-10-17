@@ -10,6 +10,8 @@
 	"bracketSameLine": true,
 	"arrowParens": "always",
 	"endOfLine": "lf",
+	"embeddedLanguageFormatting": "auto",
+	"singleAttributePerLine": false,
 	"overrides": [
 		{
 			"files": ".github/**.yml",
