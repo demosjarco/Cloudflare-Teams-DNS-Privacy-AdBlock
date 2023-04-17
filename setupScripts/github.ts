@@ -1,4 +1,5 @@
-import { createWriteStream, readFileSync, writeFileSync } from 'node:fs';
+import { createWriteStream } from 'node:fs';
+import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { pipeline } from 'node:stream/promises';
 
@@ -33,20 +34,31 @@ export class GitHub {
 	private async writeHTML(libraryName: string, libraryType: 'js' | 'css', filePath: string, sri: string) {
 		const commentPatternPreload = new RegExp(`(?<=<!-- start preload ${libraryName} ${libraryType} -->(\r|\n|\r\n)\\t)[^]*(?=(\r|\n|\r\n)\\t+<!-- end preload ${libraryName} ${libraryType} -->)`, 'i');
 		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n)\\t)[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
-		const originalHtml = readFileSync('./public/index.html', 'utf8');
-		let replacedHTML = originalHtml;
-		switch (libraryType) {
-			case 'js':
-				replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="${filePath}" integrity="${sri}" as="script" />`);
-				replacedHTML = replacedHTML.replace(commentPattern, `<script src="${filePath}" integrity="${sri}" referrerpolicy="no-referrer" defer></script>`);
-				break;
-		}
-		writeFileSync('./public/index.html', replacedHTML, 'utf8');
-
-		if (process.env.NODE_ENV == 'development') {
-			console.log(`Wrote ${libraryName} ${libraryType} (${filePath}) to html with sri (${sri})`);
-		} else {
-			console.log(`Wrote ${libraryName} ${libraryType} to html`);
-		}
+		readFile('./public/index.html', 'utf8')
+			.catch((error) => {
+				console.error('File Read error');
+				throw error;
+			})
+			.then((originalHtml) => {
+				let replacedHTML = originalHtml;
+				switch (libraryType) {
+					case 'js':
+						replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="${filePath}" integrity="${sri}" as="script" />`);
+						replacedHTML = replacedHTML.replace(commentPattern, `<script src="${filePath}" integrity="${sri}" referrerpolicy="no-referrer" defer></script>`);
+						break;
+				}
+				writeFile('./public/index.html', replacedHTML, 'utf8')
+					.catch((error) => {
+						console.error('File Write error');
+						throw error;
+					})
+					.then(() => {
+						if (process.env.NODE_ENV == 'development') {
+							console.log(`Wrote ${libraryName} ${libraryType} (${filePath}) to html with sri (${sri})`);
+						} else {
+							console.log(`Wrote ${libraryName} ${libraryType} to html`);
+						}
+					});
+			});
 	}
 }
