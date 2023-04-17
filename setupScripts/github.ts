@@ -1,26 +1,24 @@
-'use strict';
+import { createWriteStream, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { pipeline } from 'node:stream/promises';
 
-class GitHub {
-	constructor() {
-		const { createWriteStream } = require('node:fs');
-		const { createHash } = require('node:crypto');
-		const { pipeline } = require('node:stream/promises');
-
+export class GitHub {
+	public async download(): Promise<any> {
 		const endFile = createWriteStream('./public/js/cbor.js');
 		const hashFormat = 'sha512';
 		const hash = createHash(hashFormat);
 
 		fetch('https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js')
 			.catch((error) => {
+				console.error('Fetch error');
 				throw error;
 			})
 			.then((response) => {
 				if (!response.ok) {
-					throw new Error(`Error fetching ${url}: ${response.status} ${response.statusText}`);
+					throw new Error(`Error fetching ${response.status} ${response.statusText}`);
 				}
 
-				// console.log(response.clone().body.constructor.name, response.clone().body.getReader().constructor.name);
-				Promise.all([pipeline(response.clone().body, endFile), pipeline(response.clone().body, hash)]).then(() => {
+				Promise.allSettled([pipeline(response.clone().body as unknown as NodeJS.ReadableStream, endFile), pipeline(response.clone().body as unknown as NodeJS.ReadableStream, hash)]).then(() => {
 					if (process.env.NODE_ENV === 'development') {
 						console.log(`Downloaded ${'https://raw.githubusercontent.com/paroga/cbor-js/master/cbor.js'} to ${'./public/js/cbor.js'}`);
 					} else {
@@ -32,9 +30,7 @@ class GitHub {
 			});
 	}
 
-	writeHTML(libraryName, libraryType, filePath, sri) {
-		const { readFileSync, writeFileSync } = require('node:fs');
-
+	private async writeHTML(libraryName: string, libraryType: 'js' | 'css', filePath: string, sri: string) {
 		const commentPatternPreload = new RegExp(`(?<=<!-- start preload ${libraryName} ${libraryType} -->(\r|\n|\r\n)\\t)[^]*(?=(\r|\n|\r\n)\\t+<!-- end preload ${libraryName} ${libraryType} -->)`, 'i');
 		const commentPattern = new RegExp(`(?<=<!-- start ${libraryName} ${libraryType} -->(\r|\n|\r\n)\\t)[^]*(?=(\r|\n|\r\n)\\t+<!-- end ${libraryName} ${libraryType} -->)`, 'i');
 		const originalHtml = readFileSync('./public/index.html', 'utf8');
@@ -54,5 +50,3 @@ class GitHub {
 		}
 	}
 }
-
-module.exports = { GitHub };
