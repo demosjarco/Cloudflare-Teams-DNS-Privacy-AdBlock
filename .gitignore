@@ -105,3 +105,6 @@ dist
 
 # https://github.com/paroga/cbor-js
 public/js/cbor.js
+
+# Generate at run time
+setupScripts/*.js
