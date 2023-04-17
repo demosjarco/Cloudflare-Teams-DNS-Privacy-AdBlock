@@ -107,4 +107,5 @@ dist
 public/js/cbor.js
 
 # Generate at run time
+server.js
 setupScripts/*.js
