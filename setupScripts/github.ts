@@ -39,15 +39,14 @@ export class GitHub {
 				console.error('File Read error');
 				throw error;
 			})
-			.then((originalHtml) => {
-				let replacedHTML = originalHtml;
+			.then((html) => {
 				switch (libraryType) {
 					case 'js':
-						replacedHTML = replacedHTML.replace(commentPatternPreload, `<link rel="preload" href="${filePath}" integrity="${sri}" as="script" />`);
-						replacedHTML = replacedHTML.replace(commentPattern, `<script src="${filePath}" integrity="${sri}" referrerpolicy="no-referrer" defer></script>`);
+						html = html.replace(commentPatternPreload, `<link rel="preload" href="${filePath}" integrity="${sri}" as="script" />`);
+						html = html.replace(commentPattern, `<script src="${filePath}" integrity="${sri}" referrerpolicy="no-referrer" defer></script>`);
 						break;
 				}
-				writeFile('./public/index.html', replacedHTML, 'utf8')
+				writeFile('./public/index.html', html, 'utf8')
 					.catch((error) => {
 						console.error('File Write error');
 						throw error;
