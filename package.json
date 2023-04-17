@@ -5,8 +5,8 @@
 	"main": "server.js",
 	"type": "module",
 	"scripts": {
-		"build": "npm start",
-		"build:types": "tsc --incremental",
+		"build": "npm run build:types && npm start",
+		"build:types": "tsc",
 		"build:types:watch": "npm run build:types -- --watch",
 		"dev": "node . && wrangler pages dev ./public --local --ip \"localhost\" --live-reload true --local-protocol https"
 	},
