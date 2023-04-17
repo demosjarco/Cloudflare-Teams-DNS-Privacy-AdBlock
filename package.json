@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Pi-Hole Style Privacy/Ad blocking in the cloud leveraging Cloudflare for Teams Gateway DNS",
 	"main": "server.js",
+	"type": "module",
 	"scripts": {
 		"build": "npm start",
 		"build:types": "tsc --incremental",
