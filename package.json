@@ -22,7 +22,7 @@
 	},
 	"homepage": "https://cftdpa.pages.dev",
 	"devDependencies": {
-		"prettier": "^2.8.7",
+		"prettier": "^3.0.0",
 		"wrangler": "^3.1.2"
 	},
 	"dependencies": {
